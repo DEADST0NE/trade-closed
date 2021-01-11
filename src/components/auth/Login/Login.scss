@@ -1,0 +1,175 @@
+.login {
+  &-wrapper {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #ffffff 0%, #ebebee 35%, #e7e3db 40%, #ecd8b4 100%);
+  }
+  &-left {
+    position: relative;
+    display: flex;
+    width: 40%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    .login-left-title-wrapper {
+      position: relative;
+      border-top: 0.5px solid #ddd;
+      margin: 0px 20px;
+      margin-bottom: 5px;
+      .login-left-title {
+        position: relative;
+        top: -13px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        span {
+          padding: 0px 10px;
+          background-color: #f3f3f5;
+          color: #a9a9a9;
+          font-size: 13px;
+        }
+      }
+    }
+    &-content {
+      width: 50%;
+      padding-bottom: 90px;
+    }
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+      img {
+        width: 100px;
+      }
+      span {
+        position: relative;
+        left: -10px;
+        font-size: 40px;
+      }
+    }
+    &-footer {
+      position: absolute;
+      bottom: 30px;
+      left: 0;
+      width: 100%;
+      color: #a9a9a9;
+      font-size: 13px;
+      text-align: center;
+    }
+    &-body {
+      .login-form {
+        text-align: center;
+      }
+      .navigation-link {
+        display: flex;
+        justify-content: space-around;
+      }
+      .ant-form-item-explain {
+        text-align: start;
+        margin-bottom: 5px;
+      }
+      .ant-form-item-control input{
+        padding: 3px 0px !important;
+        padding-left: 5px !important;
+      }
+    }
+  }
+  &-right {
+    display: flex;
+    width: 60%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    img {
+      width: calc(100vw - 75%);
+      height: calc(100vh - 30%);
+    }
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .login-left-body {
+    .navigation-link {
+      a {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .login-wrapper {
+    background: linear-gradient(90deg, #ffffff 0%, #ebebee 40%, #e7e3db 50%, #ecd8b4 100%);
+  }
+  .login-left {
+    width: 50%;
+  }
+  .login-right {
+    width: 50%;
+    img {
+      width: calc(100vw - 100%);
+      height: calc(100vh - 45%);
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .login-left-header {
+    img {
+      width: 80px;
+    }
+    span {
+      font-size: 30px;
+    }
+  }
+  .login-left {
+    width: 100%; 
+    .password svg {
+      top: 6px;
+    }
+    .login-left-title span {
+      background: linear-gradient(90deg, #e9e7e5 50%, #e8e4dd 100%);
+    }
+    .navigation-link a {
+      font-size: 11px;
+    }
+    .form-submit-connent button {
+      height: 43px;
+    }
+  }
+  .login-right {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .login-left {
+    .login-left-content {
+      width: 65%;
+    } 
+    .login-left-title span {
+      background: linear-gradient(90deg, #eeeef0 30%, #e9e0cf 100%);
+    }
+    .navigation-link a {
+      padding: 5px 5px;
+      font-size: 11px;
+    }
+    .ant-form-item-control input{
+      padding: 0px !important;
+      font-size: 14px;
+    }
+    .ant-btn-primary {
+      padding: 0px 0px;
+    height: 35px;
+    }
+    .ant-form-item-explain {
+      font-size: 13px;
+    }
+    .submit-content {
+      margin-bottom: 10px;
+    }
+  }
+}

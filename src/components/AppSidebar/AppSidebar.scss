@@ -1,0 +1,106 @@
+.sidebar {
+  box-shadow: 8px 0px 15px 5px #0000001a;
+  border-radius: 0px 5px 5px 0px;
+  width: 100px !important;
+  min-width: 100px !important;
+  max-width: 100px !important;
+  z-index: 100;
+  .ant-menu-root {
+    border-radius: 5px;
+  }
+  .ant-layout-sider-zero-width-trigger {
+    top: -55px;
+    width: 55px;
+    height: 55px; 
+    right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff !important;
+    background-color: #fff0 !important;
+  }
+  .ant-menu {
+    padding: 20px 0px;
+  }
+  .ant-menu-item-selected { 
+    svg {
+      fill: #145388 !important;
+    }
+    span {
+      color: #145388 !important;
+    }
+  }
+  .ant-menu-item {
+    padding: 0 16px !important;
+    height: 85px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0px !important;
+    justify-content: center;  
+    line-height: 30px !important;
+    background-color: #fff0 !important;
+    margin-bottom: 10px !important;
+    svg {
+      fill: #807e7e;
+      width: 35px !important;
+      height: 35px !important;
+      margin: 0px;
+      transition: all 0.7s;
+    }
+    .anticon {
+      font-size: 30px;
+      margin: 0;
+    }
+    span {
+      color: #807e7e;
+      display: block;
+      font-size: 11px;
+      font-weight: 600; 
+    }
+    &:hover {
+      span {
+        color: #145388;
+      }
+      svg {
+        fill:  #145388;
+      }
+    }
+  }
+  .ant-menu-item::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: auto !important;  
+    border-right: 5px solid#145388 !important;
+    border-radius: 0px 5px 5px 0px;
+    -webkit-transform: scaleY(0.0001);
+    transform: scaleY(0.0001);
+    opacity: 0;
+    transition: opacity 0.15s cubic-bezier(0.215, 0.61, 0.355, 1), -webkit-transform 0.15s cubic-bezier(0.215, 0.61, 0.355, 1);
+    content: '';
+  }
+}
+
+@media screen and (max-width: 1000px) { 
+  .ant-layout-sider-zero-width {
+    position: absolute !important;
+    height: calc(100vh - 55px);
+    width: 0px !important;
+    min-width: 0px !important;
+    max-width: 90px !important;
+  }
+  .sidebar {
+    position: absolute !important;
+    height: calc(100vh - 55px);
+    .ant-menu-item {
+      svg {
+        width: 30px !important;
+        height: 30px !important;
+      }
+      span {
+        font-size: 10px !important;
+      }
+    } 
+  }
+}

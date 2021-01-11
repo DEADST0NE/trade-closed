@@ -1,0 +1,82 @@
+.client-table {  
+  height: calc(100vh - 160px);
+  padding: 5px 40px;
+  .client-search-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    .ant-input-group-wrapper {
+      padding-right: 10px;
+    }
+  } 
+  .ant-table-wrapper {
+    height: 100%;
+    max-height: calc(100vh - 215px) !important;
+    .ant-table-body {
+      height: 100%;
+      max-height: calc(100vh - 270px) !important;
+      tr {
+        cursor: pointer !important;
+      } 
+    }
+  }
+  .clolumText {
+    span {
+      display: block;
+      padding-left: 2px;
+      font-size: 10px;
+      text-align: start;
+    }
+  } 
+}
+
+.client-statistic-application {
+  width: 100px;
+  height: 100px;
+  text {
+    font-size: 10px;
+    fill: #ffffffab;
+    font-weight: 700;
+  }
+}
+.select-client-category {
+  .ant-select-selection-item {
+    button {
+      display: none;
+    }
+  }
+}
+
+.option-client-category { 
+  .ant-select-item-option-content {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    button {
+      border-radius: 25px !important;
+      display: flex !important;
+      justify-content: flex-end !important;
+      align-items: center !important;
+      svg {
+        font-size: 13px;
+      }
+      :hover {
+        color: red;
+      }
+    }
+  }
+}
+
+.btn-delete {
+  border-radius: 25px;
+  &:hover {
+    svg {
+      color: red;
+    }
+  }
+}
+
+.ditails-debt {
+  width: 215px;
+}

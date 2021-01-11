@@ -1,0 +1,62 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 55px !important;
+  padding: 0 30px !important;
+  .ant-avatar {
+    cursor: pointer;
+  } 
+  .logo {
+    display: flex;
+    align-items: center;
+    span {
+      position: relative;
+      color: #fff;
+      font-size: 30px;
+      left: -8px;
+      line-height: 27px;
+    }
+    img {
+      position: relative;
+      left: -5px;
+      width: 43px;
+      height: 43px;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) { 
+  .header {
+    padding: 0 15px !important;
+    .anticon-menu {
+      display: block;
+    }
+    .logo {
+      width: 80%;
+      padding-left: 20%;
+      justify-content: center;
+      img {
+        width: 30px;
+        height: 30px;
+      }
+      span {
+        font-size: 18px;
+        line-height: 18px; 
+      }
+    }
+  }
+}
+
+.header-menu-user-title {
+  width: 150px;
+  display: block;
+  text-align: center;
+}
+
+.header-menu-user {
+  list-style: none;
+  padding: 0px;
+  text-align: center;
+  margin: 0;
+} 

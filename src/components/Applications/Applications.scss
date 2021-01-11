@@ -1,0 +1,13 @@
+.applications-page {
+  padding: 10px;
+  height: calc(100vh - 75px);  
+}
+
+@media screen and (max-width: 1200px) { 
+  .application-detail {
+    margin-top: 10px;
+  }
+  .ant-layout-sider-children {
+    height: calc(100vh + 100vh - 110px) !important;
+  }
+}
