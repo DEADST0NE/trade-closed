@@ -151,7 +151,7 @@ import { clientsType, categoryClientType } from './types'
   }); 
 
   const getClientSearchRequest = async (searchText: string) => {
-    return axios.get('company/search/client', {
+    return axios.get('company/search/clients', {
       params: {
         searchText,
       }

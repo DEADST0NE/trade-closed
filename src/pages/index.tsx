@@ -25,7 +25,7 @@ const Pages: FC = () => (
 
           <Suspense fallback={<LoadingIndicator />}>
             <Switch>
-              <Redirect from="/" to="/home" exact />
+              <Redirect from="/" to="/applications" exact />
               <Route path="/lk" exact>
                 <LkPage />
               </Route>

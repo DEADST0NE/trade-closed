@@ -32,7 +32,7 @@ const Products: FC = () => {
         <Scrollbars autoHeight autoHeightMax={200}>
         {
           products?.map((item) => (
-            <List.Item key={item.id}>
+            <List.Item key={item.id + 'wqwq'}>
               <Row gutter={24}>
                 <Col className="photo" xl={5} xxl={3}>
                   <Avatar />

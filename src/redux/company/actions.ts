@@ -33,7 +33,7 @@ import {
       .then((response) => response.data);
   };  
 
-  export const getApplications = (id: string) :thunkType => (dispatch) => {
+  export const getCompany = (id: string) :thunkType => (dispatch) => {
     dispatch(getCompanyRequested());
     getCompanyRequest(id)
       .then((data) => dispatch(getCompanySuccess(data)))

@@ -4,7 +4,7 @@ import { Avatar, Popover, Button } from 'antd';
 import { Row, Col } from 'antd';
 import { StateType } from '../../redux/reducers'
 
-import { getApplications } from '../../redux/company/actions'
+import { getCompany } from '../../redux/company/actions'
 
 import { ShopOutlined, DownOutlined, UpOutlined } from '@ant-design/icons'
 
@@ -17,7 +17,7 @@ const Company: FC = () => {
   const { userData } = useSelector( (state: StateType) => state.user );
   const { company, loading } = useSelector( (state: StateType) => state.company );  
   useEffect(() => {
-    userData?.data.id && dispatch(getApplications(userData?.data.id));
+    userData?.data.id && dispatch(getCompany(userData?.data.id));
   }, [dispatch, userData?.data.id])
 
   if(loading){

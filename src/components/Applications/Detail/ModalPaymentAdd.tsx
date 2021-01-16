@@ -30,6 +30,8 @@ const ModalPaymentAdd = () => {
       <Modal title="Добавление оплаты" 
         visible={isModalVisible} 
         onOk={handleOk} 
+        okText="Добавить"
+        cancelText="Отмена"
         okButtonProps={{ disabled: !value }}
         onCancel={() => setIsModalVisible(false)}
         confirmLoading={loadingPayments}

@@ -18,6 +18,12 @@ const ModalCientAdd = () => {
     setIsModalVisible(false);
     setValueSearch(''); 
   }
+
+  const addClient = (item: { id: string }) => {
+    if(!clients.some((client) => client.id === item.id) && userData)
+      userData?.data.companyId && dispatch(postClient(userData.data.companyId, item.id, closedWindow))
+  }
+
   return (
     <> 
       <Button 
@@ -30,7 +36,9 @@ const ModalCientAdd = () => {
         onCancel={() => setIsModalVisible(false)}
         confirmLoading={false}
         width={700}
-        >
+        cancelText="Закрыть"
+        okButtonProps={{ style: { display: 'none' } }}
+      >
         <Input.Search placeholder="Поиск клиента..."
           loading={searchClientLoadung}
           allowClear
@@ -56,14 +64,14 @@ const ModalCientAdd = () => {
                 <Button 
                   loading={loading} 
                   type="text" 
-                  disabled={clients.some((client) => client.id === item.id) && loading} 
+                  disabled={clients.some((client) => client.id === item.id) || loading} 
                   className="add-client-btn"
                   icon={ 
                     clients.some((client) => client.id === item.id) ? 
-                      <CheckCircleOutlined /> : 
+                      <CheckCircleOutlined style={{color: 'green'}}/> : 
                       <PlusCircleOutlined />} />]
                   }
-                  onClick={() => userData?.data.companyId && dispatch(postClient(userData?.data.companyId, item.id, closedWindow))}
+                  onClick={() => addClient(item)}
               >
                 <List.Item.Meta
                   style={{display: 'flex', alignItems: 'center'}}

@@ -29,7 +29,7 @@ import { dictionaryType } from './types'
       .then((response) => response.data);
   };  
 
-  export const getApplications = () :thunkType => (dispatch) => {
+  export const getStages = () :thunkType => (dispatch) => {
     dispatch(getStagesRequested());
     getStagesRequest()
       .then((data) => dispatch(getStagesSuccess(data)))
