@@ -1,4 +1,4 @@
-import React, { Suspense, FC } from 'react'
+import { Suspense, FC } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
 import { Layout } from 'antd';
 
@@ -7,9 +7,11 @@ import LoadingIndicator from '../components/generic/LoadingIndicator'
 import AppSidebar from '../components/AppSidebar'
 
 import LkPage from '../components/Lk'
-import Applications from '../components/Applications'
-import Clients from '../components/Clients'
-import Products from '../components/Products'
+import ApplicationsPage from '../components/Applications'
+import ClientsPage from '../components/Clients'
+import EditingPage from '../components/Editing'
+import CreateAplicationPage from '../components/CreateAplication'
+import ManufacturePage from '../components/Manufacture'
 
 import NotFoundPage from '../components/generic/NotFoundPage'
 
@@ -30,13 +32,19 @@ const Pages: FC = () => (
                 <LkPage />
               </Route>
               <Route path="/applications" exact>
-                <Applications />
+                <ApplicationsPage />
               </Route>
               <Route path="/clients" exact>
-                <Clients />
+                <ClientsPage />
               </Route>
-              <Route path="/products" exact>
-                <Products />
+              <Route path="/manufacturers" exact>
+                <ManufacturePage />
+              </Route>
+              <Route path="/editing/:category?" exact>
+                <EditingPage />
+              </Route>
+              <Route path="/create-application">
+                <CreateAplicationPage />
               </Route>
               <Route>
                 <NotFoundPage />

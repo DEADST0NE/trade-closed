@@ -89,8 +89,7 @@ import { clientsType, categoryClientType } from './types'
         dispatch(postClientSuccess(data));
       })
       .catch((err) => {
-        dispatch(postClientError());
-        console.log(err);
+        dispatch(postClientError()); 
         message.error(`Ошибка, добавление клиента не возможено. ${err.response.data.message}`)
       });
   }; 
@@ -278,9 +277,8 @@ const putClientCategoryRequest = async (categoryId: string, id: string) => {
 export const putClientCategory = (categoryId: string, id: string, setValue: React.Dispatch<React.SetStateAction<string>>) :thunkType => (dispatch) => {
   dispatch(getClientCategoryRequested());
   putClientCategoryRequest(categoryId, id)
-    .then((data) => { 
-      console.log(data);
-      setValue(data.clientsCategory.value)
+    .then((data) => {
+      setValue(data?.clientsCategory?.value)
       message.success('Категория успешно изменена.')
       dispatch(putClientCategorySuccess(data))
     })

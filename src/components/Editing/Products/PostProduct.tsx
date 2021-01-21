@@ -4,13 +4,14 @@ import { Form, Input, Modal, Button, Select, Spin } from 'antd'
 
 import UploadImg from './UploadImg'
 import SelectCategoryProduct from './SelectCategoryProduct'
+import SelectManufacturerProduct from './SelectManufacturerProduct'
 import SelectClientCategory from './SelectClientCategory'
 
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
-import { postProducts } from '../../redux/product/actions'
-import  { getMeasures } from '../../redux/measure/actions'
-import { StateType } from '../../redux/reducers'
+import { postProducts } from '../../../redux/product/actions'
+import  { getMeasures } from '../../../redux/measure/actions'
+import { StateType } from '../../../redux/reducers'
 
 
 const PostProduct: FC< { showModal: boolean, setShowModal: Dispatch<SetStateAction<boolean>>} > = ({ showModal, setShowModal }) => {
@@ -35,9 +36,9 @@ const PostProduct: FC< { showModal: boolean, setShowModal: Dispatch<SetStateActi
           forceRender
           visible={showModal}
           width={650}
-          okButtonProps={{form:'basic', htmlType: 'submit'}}
-          okText="Изменить" 
-          cancelText="Отмена" 
+          okButtonProps={{form:'post-product', htmlType: 'submit'}}
+          okText="Добавить"
+          cancelText="Отмена"
           onCancel={() => {
             form.resetFields();
             setShowModal(false);
@@ -49,7 +50,7 @@ const PostProduct: FC< { showModal: boolean, setShowModal: Dispatch<SetStateActi
               <Form
                 form={form}
                 requiredMark={false}
-                name="basic"
+                name="post-product"
                 layout="vertical"
                 initialValues={{ 
                   price: [1],
@@ -68,8 +69,12 @@ const PostProduct: FC< { showModal: boolean, setShowModal: Dispatch<SetStateActi
                 <div className="product-change-content-left">
                   <div className="product-upload-img">
                     <UploadImg img={img} setImg={setImg}/>
-                  </div> 
+                  </div>  
+                </div>
+                <div className="product-change-content-right">
+
                   <Form.Item 
+                    label="Наименование товара"
                     name="title"
                     className="product-title"
                     rules={[
@@ -79,10 +84,21 @@ const PostProduct: FC< { showModal: boolean, setShowModal: Dispatch<SetStateActi
                       },
                     ]}
                   >
-                    <Input size="small" placeholder="Наименование товара" />
+                    <Input placeholder="Наименование товара" />
+                  </Form.Item>
+
+                  <Form.Item 
+                    name="manufacturer"
+                    label="Производитель"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Производитель является обязательным',
+                      },
+                    ]}
+                  >
+                    <SelectManufacturerProduct />
                   </Form.Item> 
-                </div>
-                <div className="product-change-content-right">
 
                   <Form.Item 
                     name="category"
@@ -95,6 +111,19 @@ const PostProduct: FC< { showModal: boolean, setShowModal: Dispatch<SetStateActi
                     ]}
                   >
                     <SelectCategoryProduct />
+                  </Form.Item> 
+
+                  <Form.Item 
+                    name="code"
+                    label="Код товара"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Код товара является обязательной',
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Код товара" />
                   </Form.Item> 
 
                   <div className="product-weight">

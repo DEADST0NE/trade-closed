@@ -14,6 +14,12 @@ import {
   PRODUCTS_POST_REQUEST,
   PRODUCTS_POST_SUCCESS,
   PRODUCTS_POST_ERROR,
+  PRODUCTS_DELETE_REQUEST,
+  PRODUCTS_DELETE_SUCCESS,
+  PRODUCTS_DELETE_ERROR,
+  PRODUCTS_SEARCH_REQUEST,
+  PRODUCTS_SEARCH_SUCCESS,
+  PRODUCTS_SEARCH_ERROR,
   thunkType
 } from '../actions';
 
@@ -34,10 +40,11 @@ import { productsTypeObject, productType } from './types'
     payload: error,
   }); 
 
-  const getProductsRequest = async (id: string, skip: number, take: number) => {
+  const getProductsRequest = async (id: string, typeId: string, skip: number, take: number) => {
     return axios.get('product/', {
       params: {
-        company_id: id,
+        companyId: id,
+        categoryId: typeId,
         skip,
         take,
       }
@@ -45,10 +52,12 @@ import { productsTypeObject, productType } from './types'
       .then((response) => response.data);
   };  
 
-  export const getProducts = (id: string, skip: number, take: number) :thunkType => (dispatch) => {
+  export const getProducts = (id: string, typeId: string, skip: number, take: number) :thunkType => (dispatch) => {
     dispatch(getProductsRequested());
-    getProductsRequest(id, skip, take)
-      .then((data) => dispatch(getProductsSuccess(data)))
+    getProductsRequest(id, typeId, skip, take)
+      .then((data) => {
+        dispatch(getProductsSuccess(data))
+      })
       .catch((err) => dispatch(getProductsError(err)));
   };
 //--------------
@@ -63,9 +72,9 @@ import { productsTypeObject, productType } from './types'
     payload: item,
   });
 
-  export const getProductslazy = (id: string, skip: number, take: number) :thunkType => (dispatch) => {
+  export const getProductslazy = (id: string, typeId: string, skip: number, take: number) :thunkType => (dispatch) => {
     dispatch(getProductslazyRequested());
-    getProductsRequest(id, skip, take)
+    getProductsRequest(id, typeId, skip, take)
       .then((data) => {
         dispatch(getProductslazySuccess(data))
       })
@@ -78,7 +87,7 @@ import { productsTypeObject, productType } from './types'
     type: PRODUCTS_PUT_REQUEST,
   });
 
-  const putProductsSuccess = (item: productType) => ({
+  const putProductsSuccess = (item: {id: string}) => ({
     type: PRODUCTS_PUT_SUCCESS,
     payload: item,
   });
@@ -98,6 +107,8 @@ import { productsTypeObject, productType } from './types'
       priceArray: object.price,
       imgProduct: object.imgProduct,
       сategoryId: object.category,
+      manufactureId: object.manufacturer,
+      code: object.code
     })
       .then((response) => response.data);
   };  
@@ -111,6 +122,41 @@ import { productsTypeObject, productType } from './types'
         message.success('Продукт успешно изменен');
       })
       .catch((err) => dispatch(putProductsError(err)));
+  };
+//--------------
+
+// Удаление продукта
+  const deleteProductsRequested = () => ({
+    type: PRODUCTS_DELETE_REQUEST,
+  });
+
+  const deleteProductsSuccess = (item: productType) => ({
+    type: PRODUCTS_DELETE_SUCCESS,
+    payload: item,
+  });
+
+  const deleteProductsError = (error: string) => ({
+    type: PRODUCTS_DELETE_ERROR,
+    payload: error,
+  }); 
+
+  const deleteProductsRequest = async (id: string) => {
+    return axios.delete('product/', {
+      params: {
+        productId: id,
+      }
+    })
+      .then((response) => response.data);
+  };  
+
+  export const deleteProducts = (id: string) :thunkType => (dispatch) => {
+    dispatch(deleteProductsRequested());
+    deleteProductsRequest(id)
+      .then((data) => {
+        message.success('Продукт успешно удален')
+        dispatch(deleteProductsSuccess(data));
+      })
+      .catch((err) => dispatch(deleteProductsError(err)));
   };
 //--------------
 
@@ -131,10 +177,10 @@ import { productsTypeObject, productType } from './types'
 
   const postProductsRequest = async (object: any) => {
     return axios.post('product/', {
-      companyId: object.companyId,
       description: object.info,
-      productsId: object.id,
       productsName: object.title,
+      code: object.code,
+      manufacturerId: object.manufacturer, 
       measureType: object.type,
       weight: object.weight,
       priceArray: object.price,
@@ -154,4 +200,37 @@ import { productsTypeObject, productType } from './types'
       })
       .catch((err) => dispatch(postProductsError(err)));
   };
+//--------------
+
+// Поиск продуктов
+const searchProductsRequested = () => ({
+  type: PRODUCTS_SEARCH_REQUEST,
+});
+
+const searchProductsSuccess = (item: productType[]) => ({
+  type: PRODUCTS_SEARCH_SUCCESS,
+  payload: item,
+});
+
+const searchProductsError = (error: string) => ({
+  type: PRODUCTS_SEARCH_ERROR,
+  payload: error,
+}); 
+
+const searchProductsRequest = async (companyId: string, categoryId: string, searchText: string) => {
+  return axios.get('product/search', {
+    params: {
+      companyId,
+      categoryId,
+      searchText,
+    }
+  }).then((response) => response.data);
+};  
+
+export const searchProducts = (companyId: string, categoryId: string, searchText: string) :thunkType => (dispatch) => {
+  dispatch(searchProductsRequested());
+  searchProductsRequest(companyId, categoryId, searchText)
+    .then((data) =>  dispatch(searchProductsSuccess(data)))
+    .catch((err) => dispatch(searchProductsError(err)));
+};
 //--------------

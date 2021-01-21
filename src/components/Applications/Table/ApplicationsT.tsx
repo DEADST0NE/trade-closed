@@ -60,7 +60,7 @@ const columns = [
     filters: [
       {
         text: "Новые",
-        value: "Новые"
+        value: "Новая"
       },
       {
         text: "В работе",

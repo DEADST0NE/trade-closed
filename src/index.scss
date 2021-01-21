@@ -59,3 +59,18 @@ code {
 .pl-0 {
   padding-left: 0px !important;
 }
+
+.mb-0 {
+  margin-bottom: 0px !important;
+}
+
+.delete {
+  transition: color 0.3s !important;
+  &:hover {
+    color: red !important;
+  }
+}
+
+.text-center {
+  text-align: center;
+}

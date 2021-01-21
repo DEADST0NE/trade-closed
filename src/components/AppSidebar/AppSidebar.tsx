@@ -1,39 +1,50 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Layout, Menu } from 'antd'
-import { NavLink } from 'react-router-dom'
+import { NavLink, withRouter } from 'react-router-dom'
+import { RouteComponentProps } from 'react-router'
+
 
 import Icon from '../generic/Icon';
 
 import './AppSidebar.scss'
 
-const AppSidebar: FC = () => {
-  
+const AppSidebar: FC<RouteComponentProps> = ({ location }) => { 
   return (
     <Layout.Sider className="sidebar" theme="light" breakpoint="lg" collapsedWidth="0"> 
-      <Menu defaultSelectedKeys={['2']} mode="inline">
-        <Menu.Item key="1" icon={<Icon style={{ marginLeft: '9px' }} name="create-application"/>}>
+      <Menu mode="inline" selectedKeys={[`/${location.pathname.split('/')[1]}`]}>
+        <Menu.Item key="/create-application" 
+          icon={<Icon style={{ marginLeft: '9px' }} name="create-application"/>}>
           <NavLink to="/create-application">
             Создать заявку
           </NavLink> 
         </Menu.Item>
-        <Menu.Item key="2" icon={<Icon name="applications"/>}>
+        <Menu.Item key="/applications" 
+          icon={<Icon name="applications"/>}>
           <NavLink to="/applications">
             Все заявки
           </NavLink> 
         </Menu.Item>
-        <Menu.Item key="3" icon={<Icon name="clients"/>}>
+        <Menu.Item key="/clients" 
+          icon={<Icon name="clients"/>}>
           <NavLink to="/clients">
             Клиенты
           </NavLink> 
         </Menu.Item>
-        <Menu.Item key="4" icon={<Icon name="product"/>}>
-          <NavLink to="/products">
+        <Menu.Item key="/editing" 
+          icon={<Icon name="product"/>}>
+          <NavLink to="/editing/all">
             Товары
           </NavLink> 
         </Menu.Item>
+        <Menu.Item key="/manufacturers"
+          icon={<Icon name="manufacture"/>}>
+          <NavLink to="/manufacturers">
+            Производители
+          </NavLink> 
+        </Menu.Item> 
       </Menu>
     </Layout.Sider>
   )
 }
 
-export default AppSidebar
+export default withRouter(AppSidebar)

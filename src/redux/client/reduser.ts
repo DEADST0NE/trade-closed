@@ -158,9 +158,9 @@ const reducer = (state = INIT_STATE, action: StagesActionsType): initStateType =
       };
   // Измения категории у клиента
     case CLIENTS_CATEGORY_PUT_SUCCESS: 
+      state.clients[action.payload.key] = action.payload;
       return {
         ...state,
-        clients: state.clients.map(item => item.key ===  action.payload.key ? action.payload : item),
         categoryClientLoading: false,
         categoryClientError: null,
       }; 

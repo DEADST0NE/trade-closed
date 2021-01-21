@@ -10,6 +10,12 @@ import {
   PRODUCTS_POST_REQUEST,
   PRODUCTS_POST_SUCCESS,
   PRODUCTS_POST_ERROR,
+  PRODUCTS_DELETE_REQUEST,
+  PRODUCTS_DELETE_SUCCESS,
+  PRODUCTS_DELETE_ERROR,
+  PRODUCTS_SEARCH_REQUEST,
+  PRODUCTS_SEARCH_SUCCESS,
+  PRODUCTS_SEARCH_ERROR,
 } from '../actions';
 
 export interface errorType {
@@ -23,6 +29,11 @@ export interface productType {
   avatarProduct: any;
   categoryId: string;
   description: string | null;
+  code: string;
+  manufacturer: {
+    id: string,
+    name: string,
+  }
   measure: {
     value: string;
     label: string;
@@ -45,6 +56,11 @@ export interface productsTypeObject {
     categoryId: string;
     avatarProduct: any;
     description: string | null;
+    code: string;
+    manufacturer: {
+      id: string,
+      name: string,
+    }
     measure: {
       value: string;
       label: string;
@@ -66,6 +82,7 @@ export type initStateType = {
   productsLazyLoading: boolean;
   putLoading: boolean;
   postLoading: boolean;
+  deleteLoading: boolean;
   error: errorType | null;
 } 
 
@@ -107,6 +124,27 @@ interface productPostSuccessType {
 interface productPostErrorType {
   type: typeof PRODUCTS_POST_ERROR;
 }
+interface productDeleteRequestType {
+  type: typeof PRODUCTS_DELETE_REQUEST;
+}
+interface productDeleteSuccessType {
+  type: typeof PRODUCTS_DELETE_SUCCESS;
+  payload: string;
+}
+interface productDeleteErrorType {
+  type: typeof PRODUCTS_DELETE_ERROR;
+}
+interface productSearchErrorType {
+  type: typeof PRODUCTS_SEARCH_ERROR;
+  payload: errorType
+}
+interface productSearchSuccessType {
+  type: typeof PRODUCTS_SEARCH_SUCCESS;
+  payload: productsTypeObject;
+}
+interface productSearchRequestType {
+  type: typeof PRODUCTS_SEARCH_REQUEST;
+}
 
 export type ProductActionsType =
   | productGetErrorType
@@ -119,4 +157,10 @@ export type ProductActionsType =
   | productPutErrorType
   | productPostRequestType
   | productPostSuccessType
-  | productPostErrorType;
+  | productPostErrorType
+  | productDeleteRequestType
+  | productDeleteSuccessType
+  | productDeleteErrorType
+  | productSearchErrorType
+  | productSearchSuccessType
+  | productSearchRequestType;

@@ -20,7 +20,7 @@ const ModalCientAdd = () => {
   }
 
   const addClient = (item: { id: string }) => {
-    if(!clients.some((client) => client.id === item.id) && userData)
+    if(!Object.keys(clients).some((key) => clients[key].id === item.id) && userData)
       userData?.data.companyId && dispatch(postClient(userData.data.companyId, item.id, closedWindow))
   }
 
@@ -64,10 +64,10 @@ const ModalCientAdd = () => {
                 <Button 
                   loading={loading} 
                   type="text" 
-                  disabled={clients.some((client) => client.id === item.id) || loading} 
+                  disabled={Object.keys(clients).some((key) => clients[key].id === item.id) || loading} 
                   className="add-client-btn"
                   icon={ 
-                    clients.some((client) => client.id === item.id) ? 
+                    Object.keys(clients).some((key) => clients[key].id === item.id) ? 
                       <CheckCircleOutlined style={{color: 'green'}}/> : 
                       <PlusCircleOutlined />} />]
                   }

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Table, Input, Popover, Button, Typography, Popconfirm } from 'antd'
 import { PieChart } from 'react-minimal-pie-chart'
 
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined } from '@ant-design/icons'
 
 import ModalCientAdd from './ModalClientAdd'
 
@@ -184,22 +184,22 @@ const ApplicationsVT: FC = () => {
     )  
   }
 
-  const dataSource = clients.map((item, index) => ({
-    key: item.id,
+  const dataSource = Object.keys(clients).map((item, index) => ({
+    key: clients[item].id,
     number:  1 + index, 
-    name: HeadFootText(item.name, item.address, 'clolumText'),
-    email: item.email,
-    phone: item.phone,
-    date: item.dateAdd,
-    clientCategory: <SelectClientCategory id={item.key} defautData={item.clientsCategory}/>,
-    application: <ApplicationStatistic statisticData={item.applicationStatistic}/>,
-    debt: <DebtItem debt={item.debt} />,
+    name: HeadFootText(clients[item].name, clients[item].address, 'clolumText'),
+    email: clients[item].email,
+    phone: clients[item].phone,
+    date: clients[item].dateAdd,
+    clientCategory: <SelectClientCategory id={clients[item].key} defautData={clients[item].clientsCategory}/>,
+    application: <ApplicationStatistic statisticData={clients[item].applicationStatistic}/>,
+    debt: <DebtItem debt={clients[item].debt} />,
     delete: <Popconfirm
               title="Вы уверены, что хотите удалить клиента ?"
               okText="Да"
               onConfirm={() => { 
-                if(item.key)
-                  dispatch(deleteClient(item.key))
+                if(clients[item].key)
+                  dispatch(deleteClient(clients[item].key))
               }}
               cancelText="Нет">
                 <Button className="btn-delete" type='text' icon={<DeleteOutlined color="red"/>}/>

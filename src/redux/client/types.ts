@@ -56,7 +56,7 @@ export interface categoryClientType {
 }
 
 export type initStateType = {
-  clients: clientsType[];
+  clients: any;
   loading: boolean;
   error: errorType | null;
   categoryClient: categoryClientType[];

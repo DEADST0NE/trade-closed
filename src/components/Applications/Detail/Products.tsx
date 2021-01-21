@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react'
+import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Scrollbars } from 'react-custom-scrollbars'
 
@@ -46,8 +46,7 @@ const Products: FC = () => {
                 <Col className="total" xl={6} xxl={5}>
                   {item.total} ₽
                 </Col>
-              </Row>
-              
+              </Row> 
             </List.Item>
           ))
         }

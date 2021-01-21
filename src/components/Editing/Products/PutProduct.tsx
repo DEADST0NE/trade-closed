@@ -5,12 +5,14 @@ import { Form, Input, Modal, Button, Select, Spin } from 'antd'
 import UploadImg from './UploadImg'
 import SelectCategoryProduct from './SelectCategoryProduct'
 import SelectClientCategory from './SelectClientCategory'
+import SelectManufacturerProduct from './SelectManufacturerProduct'
 
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 
-import { putProducts } from '../../redux/product/actions'
-import  { getMeasures } from '../../redux/measure/actions'
-import { StateType } from '../../redux/reducers'
+import { putProducts } from '../../../redux/product/actions'
+import  { getMeasures } from '../../../redux/measure/actions'
+import  { getManufacturers } from '../../../redux/manufacture/actions'
+import { StateType } from '../../../redux/reducers'
 
 
 const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: Dispatch<SetStateAction<boolean>>} > = ({ keyObject, showModal, setShowModal }) => {
@@ -20,8 +22,13 @@ const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: 
 
   const { products, putLoading } = useSelector( (state: StateType) => state.product );
   const { measures, loading } = useSelector( (state: StateType) => state.measures );
-  
-  useEffect(() => { dispatch(getMeasures()) }, [dispatch]);
+  const { userData } = useSelector( (state: StateType) => state.user );
+
+  useEffect(() => { 
+    userData?.data.companyId && dispatch(getManufacturers(userData?.data.companyId));
+    dispatch(getMeasures());
+  }, [dispatch, userData?.data.companyId]);
+
   useEffect(() => {
     form.resetFields();
     products[keyObject]?.avatarProduct && setImg({src: products[keyObject]?.avatarProduct}) 
@@ -34,7 +41,7 @@ const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: 
           forceRender
           visible={showModal}
           width={650}
-          okButtonProps={{form:'basic', htmlType: 'submit'}}
+          okButtonProps={{form:'put-product', htmlType: 'submit'}}
           okText="Изменить" 
           cancelText="Отмена" 
           onCancel={() => {
@@ -48,7 +55,7 @@ const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: 
               <Form
                 form={form}
                 requiredMark={false}
-                name="basic"
+                name="put-product"
                 layout="vertical"
                 initialValues={{
                   id: products[keyObject]?.id,
@@ -57,6 +64,8 @@ const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: 
                   category: products[keyObject]?.categoryId,
                   weight: products[keyObject]?.weight,
                   info: products[keyObject]?.description,
+                  code: products[keyObject]?.code,
+                  manufacturer: products[keyObject]?.manufacturer.id,
                   price: products[keyObject]?.price.map(item => ({
                     id: item.id,
                     categoryClient: item.category.value,
@@ -76,8 +85,12 @@ const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: 
                 <div className="product-change-content-left">
                   <div className="product-upload-img">
                     <UploadImg img={img} setImg={setImg}/>
-                  </div> 
+                  </div>  
+                </div>
+                <div className="product-change-content-right">
+
                   <Form.Item 
+                    label="Наименование товара"
                     name="title"
                     className="product-title"
                     rules={[
@@ -87,10 +100,21 @@ const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: 
                       },
                     ]}
                   >
-                    <Input size="small" placeholder="Наименование товара" />
-                  </Form.Item> 
-                </div>
-                <div className="product-change-content-right">
+                    <Input placeholder="Наименование товара" />
+                  </Form.Item>
+
+                  <Form.Item 
+                    name="manufacturer"
+                    label="Производитель"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Производитель является обязательным',
+                      },
+                    ]}
+                  >
+                    <SelectManufacturerProduct />
+                  </Form.Item>
 
                   <Form.Item 
                     name="category"
@@ -103,6 +127,19 @@ const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: 
                     ]}
                   >
                     <SelectCategoryProduct />
+                  </Form.Item>
+
+                  <Form.Item 
+                    name="code"
+                    label="Код товара"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Код товара является обязательной',
+                      },
+                    ]}
+                  >
+                    <Input placeholder="Код товара" />
                   </Form.Item> 
 
                   <div className="product-weight">

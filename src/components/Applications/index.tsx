@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { Row, Col } from 'antd';
 
 import Table from './Table'

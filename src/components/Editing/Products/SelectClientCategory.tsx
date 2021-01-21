@@ -4,9 +4,9 @@ import { Select, Divider, Input, Button, Popconfirm } from 'antd'
 
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 
-import { getClientCategory, postClientCategory, deleteClientCategory } from '../../redux/client/actions'
+import { getClientCategory, postClientCategory, deleteClientCategory } from '../../../redux/client/actions'
 
-import { StateType } from '../../redux/reducers'
+import { StateType } from '../../../redux/reducers'
 
 const SelectClientCategory: FC<{selectedvalue: any}> = (props) => {
   const dispatch = useDispatch();

@@ -113,7 +113,7 @@ interface paymentsType {
   employeeName: string;
   employeeJobPos: string;
 }
- 
+
 
 interface detailApplicationsSet {
   type: typeof DETAIL_APPLICATIONS_SET;

@@ -10,6 +10,12 @@ import {
   PRODUCTS_POST_REQUEST,
   PRODUCTS_POST_SUCCESS,
   PRODUCTS_POST_ERROR,
+  PRODUCTS_DELETE_REQUEST,
+  PRODUCTS_DELETE_SUCCESS,
+  PRODUCTS_DELETE_ERROR,
+  PRODUCTS_SEARCH_REQUEST,
+  PRODUCTS_SEARCH_SUCCESS,
+  PRODUCTS_SEARCH_ERROR,
 } from '../actions';
 
 import { initStateType, ProductActionsType } from './types'
@@ -21,6 +27,7 @@ const INIT_STATE: initStateType = {
   error: null,
   putLoading: false,
   postLoading: false,
+  deleteLoading: false,
 };
 
 const reducer = (state = INIT_STATE, action: ProductActionsType): initStateType => {
@@ -89,6 +96,43 @@ const reducer = (state = INIT_STATE, action: ProductActionsType): initStateType 
       return {
         ...state,
         postLoading: false,
+      };
+    case PRODUCTS_DELETE_REQUEST:
+      return {
+        ...state,
+        deleteLoading: true,
+      };
+    case PRODUCTS_DELETE_SUCCESS:
+      delete(state.products[action.payload]);
+      return {
+        ...state,
+        deleteLoading: false,
+      };
+    case PRODUCTS_DELETE_ERROR:
+      return {
+        ...state,
+        deleteLoading: false,
+      };
+    case PRODUCTS_SEARCH_ERROR:
+      return {
+        ...state,
+        loading: false, 
+        error: action.payload,
+      };
+
+    case PRODUCTS_SEARCH_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+
+    case PRODUCTS_SEARCH_SUCCESS:
+      return {
+        ...state,
+        products: action.payload,
+        loading: false,
+        error: null,
       };
     default:
       return state;
