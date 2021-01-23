@@ -8,14 +8,14 @@ import Categories from './Categories'
 const Products:FC = () => {
   return (
     <div className="create-application-products-body">
-      <Row gutter={[5,10]}>
-        <Col xs={3}>
+      <Row gutter={[15,10]}>
+        <Col xs={4}>
           <Categories />
         </Col>
-        <Col xs={17}>
+        <Col xs={15}>
           <ProductList />
         </Col>
-        <Col xs={4}>
+        <Col xs={5}>
           <Basket />
         </Col> 
       </Row> 

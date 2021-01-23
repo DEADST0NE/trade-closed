@@ -97,7 +97,7 @@ const ProductList: FC<RouteComponentProps<matchParams>> = ({match}) => {
         <Row gutter={[15, 25]}>
           {
             Object.keys(products).map( (item) => ( 
-              <Col xxl={4} xl={6} lg={8} md={12} sm={24} key={products[item].id} >
+              <Col xxl={6} xl={6} lg={8} md={12} sm={24} key={products[item].id} >
                 <Card 
                   cover={
                     <img

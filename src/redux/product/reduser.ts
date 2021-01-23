@@ -16,6 +16,7 @@ import {
   PRODUCTS_SEARCH_REQUEST,
   PRODUCTS_SEARCH_SUCCESS,
   PRODUCTS_SEARCH_ERROR,
+  PRODUCTS_MANUFACTURE_FILTER,
 } from '../actions';
 
 import { initStateType, ProductActionsType } from './types'
@@ -28,7 +29,15 @@ const INIT_STATE: initStateType = {
   putLoading: false,
   postLoading: false,
   deleteLoading: false,
+  filterManufacture: [],
 };
+
+const addFilter = (array: string[], id: string) => { 
+  if(array.length) {
+    const index = array.findIndex(item => item === id); 
+    index >= 0 ? array.splice(index) : array.push(id);
+  }else array.push(id);
+}
 
 const reducer = (state = INIT_STATE, action: ProductActionsType): initStateType => {
   switch (action.type) {
@@ -133,6 +142,12 @@ const reducer = (state = INIT_STATE, action: ProductActionsType): initStateType 
         products: action.payload,
         loading: false,
         error: null,
+      };
+
+    case PRODUCTS_MANUFACTURE_FILTER:
+      addFilter(state.filterManufacture, action.payload);
+      return {
+        ...state
       };
     default:
       return state;

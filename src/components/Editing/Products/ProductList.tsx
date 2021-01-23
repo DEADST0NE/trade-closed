@@ -41,12 +41,12 @@ const ProductList: FC<ProductListParmType & RouteComponentProps<matchParams>> = 
   const dispatch = useDispatch(); 
   const { userData } = useSelector( (state: StateType) => state.user );  
   const { products, loading, error, productsLazyLoading, deleteLoading } = useSelector( (state: StateType) => state.product );
-
+  const { filterManufacture } = useSelector( (state: StateType) => state.product );
   const onScrollList = (event: any) => { // Линивая загрузка 
     const scrollBottom = event.target.scrollTop + event.target.offsetHeight === event.target.scrollHeight;
     if (scrollBottom) { 
       userData?.data.companyId &&
-        dispatch(getProductslazy(userData?.data.companyId, match.params?.category, Object.keys(products).length, 28))
+        dispatch(getProductslazy(userData?.data.companyId, match.params?.category, Object.keys(products).length, 28, filterManufacture))
     } 
   }
 

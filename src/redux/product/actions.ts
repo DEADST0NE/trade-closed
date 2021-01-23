@@ -20,10 +20,18 @@ import {
   PRODUCTS_SEARCH_REQUEST,
   PRODUCTS_SEARCH_SUCCESS,
   PRODUCTS_SEARCH_ERROR,
+  PRODUCTS_MANUFACTURE_FILTER,
   thunkType
 } from '../actions';
 
 import { productsTypeObject, productType } from './types'
+
+// Фильтр для продуктов
+  export const productManufactureFilter = (item: string) => ({
+    type: PRODUCTS_MANUFACTURE_FILTER,
+    payload: item,
+  });
+//---------------------
 
 // Список продуктов
   const getProductsRequested = () => ({
@@ -40,21 +48,22 @@ import { productsTypeObject, productType } from './types'
     payload: error,
   }); 
 
-  const getProductsRequest = async (id: string, typeId: string, skip: number, take: number) => {
+  const getProductsRequest = async (id: string, typeId: string, skip: number, take: number, manufactureFilter?: string[]) => {
     return axios.get('product/', {
       params: {
         companyId: id,
         categoryId: typeId,
         skip,
         take,
+        manufactureFilter
       }
     })
       .then((response) => response.data);
   };  
 
-  export const getProducts = (id: string, typeId: string, skip: number, take: number) :thunkType => (dispatch) => {
+  export const getProducts = (id: string, typeId: string, skip: number, take: number, manufactureFilter?: string[]) :thunkType => (dispatch) => {
     dispatch(getProductsRequested());
-    getProductsRequest(id, typeId, skip, take)
+    getProductsRequest(id, typeId, skip, take, manufactureFilter)
       .then((data) => {
         dispatch(getProductsSuccess(data))
       })
@@ -72,9 +81,9 @@ import { productsTypeObject, productType } from './types'
     payload: item,
   });
 
-  export const getProductslazy = (id: string, typeId: string, skip: number, take: number) :thunkType => (dispatch) => {
+  export const getProductslazy = (id: string, typeId: string, skip: number, take: number, manufactureFilter?: string[]) :thunkType => (dispatch) => {
     dispatch(getProductslazyRequested());
-    getProductsRequest(id, typeId, skip, take)
+    getProductsRequest(id, typeId, skip, take, manufactureFilter)
       .then((data) => {
         dispatch(getProductslazySuccess(data))
       })
@@ -217,19 +226,20 @@ const searchProductsError = (error: string) => ({
   payload: error,
 }); 
 
-const searchProductsRequest = async (companyId: string, categoryId: string, searchText: string) => {
+const searchProductsRequest = async (companyId: string, categoryId: string, searchText: string, filterManufacture?: string[]) => {
   return axios.get('product/search', {
     params: {
       companyId,
       categoryId,
       searchText,
+      filterManufacture
     }
   }).then((response) => response.data);
 };  
 
-export const searchProducts = (companyId: string, categoryId: string, searchText: string) :thunkType => (dispatch) => {
+export const searchProducts = (companyId: string, categoryId: string, searchText: string, filterManufacture?: string[]) :thunkType => (dispatch) => {
   dispatch(searchProductsRequested());
-  searchProductsRequest(companyId, categoryId, searchText)
+  searchProductsRequest(companyId, categoryId, searchText, filterManufacture)
     .then((data) =>  dispatch(searchProductsSuccess(data)))
     .catch((err) => dispatch(searchProductsError(err)));
 };

@@ -16,6 +16,7 @@ import {
   PRODUCTS_SEARCH_REQUEST,
   PRODUCTS_SEARCH_SUCCESS,
   PRODUCTS_SEARCH_ERROR,
+  PRODUCTS_MANUFACTURE_FILTER,
 } from '../actions';
 
 export interface errorType {
@@ -74,7 +75,7 @@ export interface productsTypeObject {
       }
     }[]
   }
-}
+} 
 
 export type initStateType = {
   products: productsTypeObject;
@@ -84,6 +85,7 @@ export type initStateType = {
   postLoading: boolean;
   deleteLoading: boolean;
   error: errorType | null;
+  filterManufacture: string[];
 } 
 
 interface productGetErrorType {
@@ -145,6 +147,10 @@ interface productSearchSuccessType {
 interface productSearchRequestType {
   type: typeof PRODUCTS_SEARCH_REQUEST;
 }
+interface productManufactureFilterType {
+  type: typeof PRODUCTS_MANUFACTURE_FILTER;
+  payload: string;
+}
 
 export type ProductActionsType =
   | productGetErrorType
@@ -163,4 +169,5 @@ export type ProductActionsType =
   | productDeleteErrorType
   | productSearchErrorType
   | productSearchSuccessType
-  | productSearchRequestType;
+  | productSearchRequestType
+  | productManufactureFilterType;
