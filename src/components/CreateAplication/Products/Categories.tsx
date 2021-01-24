@@ -25,7 +25,7 @@ const Categories: FC<RouteComponentProps<matchType>> = ({ match }) => {
   const { category, loading } = useSelector( (state: StateType) => state.category );
   
   return (
-    <div className="categories-wrapper-create-application">
+    <div className="create-application-product-categories">
       <PageHeader
         ghost={false} 
         className="page-header-create-application"

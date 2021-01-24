@@ -2,7 +2,6 @@ import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux' 
 import { PageHeader, Col, Row , Popover, Spin, Card, Button, Input} from 'antd'
 import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
 
 import { addBasketProduct, deleteBasketProduct } from '../../../redux/basket/actions'
 import { getProductslazy, getProducts } from '../../../redux/product/actions'
@@ -17,14 +16,33 @@ const InfoProduct: FC<{ text?: string | null }> = ({text}) => { // Подроб�
       <QuestionCircleOutlined />
     </Popover> 
   )
-} 
+}  
 
-interface matchParams {
-  categoryId: string;
-  clientId: string;
+const Product = () => {
+  return (
+    <div className="create-application-product-list">
+      <PageHeader
+        ghost={false} 
+        className="page-header-create-application"
+        title="Товары"
+      />
+      <div className="product-list-content">
+        <div className="product-search">
+          <Input.Search
+            placeholder="Поиск товара...."
+            allowClear
+            onSearch={(value) => {
+              console.log(value);
+            }}
+          /> 
+        </div>
+        <ProductList />
+      </div>
+    </div>
+  )
 }
 
-const ProductList: FC<RouteComponentProps<matchParams>> = ({match}) => {
+const ProductList: any = withRouter(({match}) => {
   const dispatch = useDispatch(); 
   const { userData } = useSelector( (state: StateType) => state.user );
   const { products, loading, error, productsLazyLoading } = useSelector( (state: StateType) => state.product );
@@ -45,10 +63,8 @@ const ProductList: FC<RouteComponentProps<matchParams>> = ({match}) => {
     } 
   }
 
-  if (loading){
-    return (
-      <Spin />
-    )
+  if (loading) {
+    return <Spin />
   }
 
   if (error) (
@@ -78,26 +94,12 @@ const ProductList: FC<RouteComponentProps<matchParams>> = ({match}) => {
     array.find((item) => (item.category.value === clients[match.params?.clientId]?.clientsCategory?.value))
   ) 
   return (
-    <div className="product-list-create-application">
-      <PageHeader
-        ghost={false} 
-        className="page-header-create-application"
-        title="Товары"
-      />
-      <div className="product-search">
-        <Input.Search
-          placeholder="Поиск товара...."
-          allowClear
-          onSearch={(value) => {
-            console.log(value);
-          }}
-        /> 
-      </div>
+    <>
       <div className="product-list" onScroll={ event => onScrollList(event)}>
         <Row gutter={[15, 25]}>
           {
             Object.keys(products).map( (item) => ( 
-              <Col xxl={6} xl={6} lg={8} md={12} sm={24} key={products[item].id} >
+              <Col xxl={4} xl={8} lg={12} md={24} sm={24} key={products[item].id} >
                 <Card 
                   cover={
                     <img
@@ -120,18 +122,17 @@ const ProductList: FC<RouteComponentProps<matchParams>> = ({match}) => {
                                   <Button icon={<MinusOutlined />} onClick={ () => dispatch(deleteBasketProduct(item)) }/>
                                     <span className="count">
                                       {basket[item].count}
-                                      <span>шт</span>
+                                      <span>{products[item]?.measure.label}</span>
                                     </span>
                                   <Button type="primary" icon={<PlusOutlined />} 
                                     onClick={() => { dispatch(addBasketProduct({ ...products[item], price: clientPrice(products[item]?.price) })) }}
                                   />
                                 </div>
                               ) : (
-                                <Button type="primary" 
-                                  onClick={() => { 
+                                <Button type="primary" onClick={() => { 
                                     dispatch(addBasketProduct({ ...products[item], price: clientPrice(products[item]?.price) }))
                                   }}>
-                                  В корзину
+                                    В корзину
                                 </Button> 
                               )
                             } 
@@ -147,8 +148,8 @@ const ProductList: FC<RouteComponentProps<matchParams>> = ({match}) => {
         </Row>
       </div>
       {productsLazyLoading ? <div className="lizy-loader"><Spin className="products-lazy-loading"/></div> : null}
-    </div>
+    </>
   )
-}
+})
 
-export default withRouter(ProductList)
+export default Product

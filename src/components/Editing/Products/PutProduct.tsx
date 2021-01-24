@@ -38,17 +38,17 @@ const ChangeProduct: FC< { keyObject: string, showModal: boolean, setShowModal: 
   return (
     <> 
       <Modal title="Изменить товар"
-          forceRender
-          visible={showModal}
-          width={650}
-          okButtonProps={{form:'put-product', htmlType: 'submit'}}
-          okText="Изменить" 
-          cancelText="Отмена" 
-          onCancel={() => {
-            form.resetFields();
-            setShowModal(false);
-            setImg(null);
-          }}>
+        forceRender
+        visible={showModal}
+        width={650}
+        okButtonProps={{form:'put-product', htmlType: 'submit'}}
+        okText="Изменить" 
+        cancelText="Отмена" 
+        onCancel={() => {
+          form.resetFields();
+          setShowModal(false);
+          setImg(null);
+        }}>
         <div className="product-wrapper-change">
           {
             !putLoading ? (
