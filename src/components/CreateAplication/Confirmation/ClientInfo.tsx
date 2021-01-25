@@ -11,10 +11,8 @@ interface matchParams {
 }
 
 const ClientInfo: FC<RouteComponentProps<matchParams>> = ({ match }) => {
-  const { clients, loading } = useSelector( (state: StateType) => state.client );
-  console.log(clients[match.params.clientId]);
+  const { clients, loading } = useSelector( (state: StateType) => state.client ); 
   const client = clients[match.params.clientId];
-  console.log(client, loading);
   return (
     <div className="confirmation-client"> 
       <div className="confirmation-client-body">
@@ -27,13 +25,13 @@ const ClientInfo: FC<RouteComponentProps<matchParams>> = ({ match }) => {
                 <Avatar size="large" shape="square" style={{ backgroundColor: '#7265e6' }}>
                   {client?.name[0]}
                 </Avatar>
-                  <span className="client-name">{client.name}</span> 
+                  <span className="client-name">{client?.name}</span> 
               </div>
               <div className="client-info"> 
                 <Alert 
-                  message={ client.debt.count <= 0 ? 'Задолжность клиента отсутствует' : 'Задолжность клиента' }
-                  description={ client.debt.count <= 0 ? false : `Сумма долга: ${client.debt.count} ₽` }
-                  type={ client.debt.count <= 0 ? 'success' : 'warning' }
+                  message={ client?.debt.count <= 0 ? 'Задолжность клиента отсутствует' : 'Задолжность клиента' }
+                  description={ client?.debt.count <= 0 ? false : `Сумма долга: ${client?.debt.count} ₽` }
+                  type={ client?.debt.count <= 0 ? 'success' : 'warning' }
                   showIcon
                   closable
                 />

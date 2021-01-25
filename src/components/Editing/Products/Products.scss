@@ -23,7 +23,7 @@
       }
     }
     .ant-row {
-      width: 100%;
+      width: 100%; 
     }
     .ant-card {
       padding: 10px;
@@ -76,7 +76,7 @@
         .product-price { 
           display: inline-block;
           width: 100%;
-          margin-top: 10px;
+          margin-top: 10px; 
           .ant-select {
             width: 100%;
             .ant-select-selector {
@@ -329,4 +329,11 @@
     height: 13px;
     width: 13px;
   }
+}
+
+.none-price {
+  font-size: 12px;
+  color: red;
+  line-height: 1;
+  display: block;
 }
