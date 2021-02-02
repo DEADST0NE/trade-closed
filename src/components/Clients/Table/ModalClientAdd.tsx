@@ -1,10 +1,11 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { List, Modal, Input, Button, Avatar } from 'antd';
 
 import { PlusCircleOutlined, CheckCircleOutlined } from '@ant-design/icons';
 
-import { getClientSearch, getClientSearchError, postClient } from '../../../redux/client/actions';
+import { getClientSearch, postClient } from '../../../redux/client/actions';
 
 import { StateType } from '../../../redux/reducers'
 
@@ -23,6 +24,10 @@ const ModalCientAdd = () => {
     if(!Object.keys(clients).some((key) => clients[key].id === item.id) && userData)
       userData?.data.companyId && dispatch(postClient(userData.data.companyId, item.id, closedWindow))
   }
+
+  useEffect(() => {
+    dispatch(getClientSearch(valueSearch))
+  }, [])
 
   return (
     <> 
@@ -43,13 +48,11 @@ const ModalCientAdd = () => {
           loading={searchClientLoadung}
           allowClear
           value={valueSearch}
-          onChange={(el) => setValueSearch(el.target.value)}
-          onSearch={() => { 
-            if(valueSearch)
-              dispatch(getClientSearch(valueSearch));
-            else
-              dispatch(getClientSearchError());
-          }} />
+          onChange={(el) => {
+            setValueSearch(el.target.value)
+            if(el.target.value.length === 0) dispatch(getClientSearch(''))
+          }}
+          onSearch={() => dispatch(getClientSearch(valueSearch))} />
         <div style={{maxHeight: '300px', overflowY: 'auto'}}>
           <List 
             style={{marginTop: "20px"}}

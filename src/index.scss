@@ -64,6 +64,10 @@ code {
   margin-bottom: 0px !important;
 }
 
+.mb-5 {
+  margin-bottom: 50px !important;
+}
+
 .delete {
   transition: color 0.3s !important;
   &:hover {
@@ -73,4 +77,21 @@ code {
 
 .text-center {
   text-align: center;
+}
+
+.error-border {
+  border-color: red !important;
+}
+
+.filter-content {
+  .ant-checkbox-wrapper {
+    width: 100% !important;
+    display: flex;
+    align-items: flex-end;
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;  
+    }
+  }
 }

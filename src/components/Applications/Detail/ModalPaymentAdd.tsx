@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Typography, Modal, InputNumber, Button } from 'antd';
 
@@ -8,7 +8,7 @@ import { StateType } from '../../../redux/reducers'
 
 import { PlusOutlined } from '@ant-design/icons'; 
 
-const ModalPaymentAdd = () => {
+const ModalPaymentAdd: FC = () => {
   const dispatch = useDispatch();
   const { detailInfo, loadingPayments } = useSelector( (state: StateType) => state.applications );
   const { userData } = useSelector( (state: StateType) => state.user );
@@ -23,6 +23,7 @@ const ModalPaymentAdd = () => {
   return (
     <> 
       <Button 
+        type="text"
         onClick={() => setIsModalVisible(true)}
         disabled={detailInfo?.stages[0] === 4 || detailInfo?.stages[0] === 3}
         icon={<PlusOutlined />} 

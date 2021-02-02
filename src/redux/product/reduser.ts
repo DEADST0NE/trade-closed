@@ -17,6 +17,7 @@ import {
   PRODUCTS_SEARCH_SUCCESS,
   PRODUCTS_SEARCH_ERROR,
   PRODUCTS_MANUFACTURE_FILTER,
+  PRODUCTS_CLIENT_CATEGORY_CLIENT_FILTER,
 } from '../actions';
 
 import { initStateType, ProductActionsType } from './types'
@@ -30,12 +31,13 @@ const INIT_STATE: initStateType = {
   postLoading: false,
   deleteLoading: false,
   filterManufacture: [],
+  filterClientCategory: [],
 };
 
 const addFilter = (array: string[], id: string) => { 
   if(array.length) {
     const index = array.findIndex(item => item === id); 
-    index >= 0 ? array.splice(index) : array.push(id);
+    index >= 0 ? array.splice(index, 1) : array.push(id);
   }else array.push(id);
 }
 
@@ -146,6 +148,11 @@ const reducer = (state = INIT_STATE, action: ProductActionsType): initStateType 
 
     case PRODUCTS_MANUFACTURE_FILTER:
       addFilter(state.filterManufacture, action.payload);
+      return {
+        ...state
+      };
+    case PRODUCTS_CLIENT_CATEGORY_CLIENT_FILTER:
+      addFilter(state.filterClientCategory, action.payload);
       return {
         ...state
       };

@@ -43,7 +43,7 @@ const ApplicationDetail: FC = () => {
         <p className="title">
           Персональные данные
         </p>
-        <ul className="client-data mb-4">
+        <ul className="client-data mb-5">
           <li>
             Фио:<span>{detailInfo?.clientName}</span>
           </li>

@@ -1,8 +1,7 @@
 import { FC, Dispatch, SetStateAction } from 'react'
 import { useDispatch, useSelector } from 'react-redux' 
-import { Col, Row , Select, Popover, Spin, Card, Popconfirm } from 'antd'
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Col, Row , Select, Popover, Spin, Card, Popconfirm, Empty } from 'antd'
+import { useParams } from 'react-router-dom' 
 
 import { getProductslazy, deleteProducts } from '../../../redux/product/actions'
 import { StateType } from '../../../redux/reducers'
@@ -33,12 +32,13 @@ interface ProductListParmType {
   setKeyProduct: Dispatch<SetStateAction<string>>
 }
 
-interface matchParams {
+interface urlParamsType {
   category: string;
 }
 
-const ProductList: FC<ProductListParmType & RouteComponentProps<matchParams>> = ({setShowModalPut, setKeyProduct, match}) => {
-  const dispatch = useDispatch(); 
+const ProductList: FC<ProductListParmType> = ({setShowModalPut, setKeyProduct}) => {
+  const dispatch = useDispatch();
+  const params = useParams<urlParamsType>();
   const { userData } = useSelector( (state: StateType) => state.user );  
   const { products, loading, error, productsLazyLoading, deleteLoading } = useSelector( (state: StateType) => state.product );
   const { filterManufacture } = useSelector( (state: StateType) => state.product );
@@ -46,7 +46,7 @@ const ProductList: FC<ProductListParmType & RouteComponentProps<matchParams>> = 
     const scrollBottom = event.target.scrollTop + event.target.offsetHeight === event.target.scrollHeight;
     if (scrollBottom) { 
       userData?.data.companyId &&
-        dispatch(getProductslazy(userData?.data.companyId, match.params?.category, Object.keys(products).length, 28, filterManufacture))
+        dispatch(getProductslazy(userData?.data.companyId, params?.category, Object.keys(products).length, 28, filterManufacture))
     } 
   }
 
@@ -80,7 +80,7 @@ const ProductList: FC<ProductListParmType & RouteComponentProps<matchParams>> = 
   if(!Object.keys(products).length) {
     return (
       <>
-      <h1>Поиск не дал результатов</h1>
+        <Empty description="Не найдено"/>
       </>
     )
   }
@@ -143,4 +143,4 @@ const ProductList: FC<ProductListParmType & RouteComponentProps<matchParams>> = 
   )
 }
 
-export default withRouter(ProductList)
+export default ProductList

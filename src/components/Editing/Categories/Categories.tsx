@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { NavLink, useLocation } from 'react-router-dom' 
 
 import { DeleteOutlined, Loading3QuartersOutlined } from '@ant-design/icons'
 
@@ -15,10 +14,10 @@ import PostCategory from './PostCategory'
 
 import './Categories.scss';
 
-const Categories: FC<RouteComponentProps> = ({ location }) => {
+const Categories: FC = () => {
 
   const dispatch = useDispatch();
-
+  const location = useLocation();
   const { userData } = useSelector( (state: StateType) => state.user ); 
   useEffect(() => {
     userData?.data.companyId && dispatch(getCaregories(userData?.data.companyId));
@@ -78,4 +77,4 @@ const Categories: FC<RouteComponentProps> = ({ location }) => {
   )
 }
 
-export default withRouter(Categories);
+export default Categories;

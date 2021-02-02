@@ -23,7 +23,7 @@ const Products: FC = () => {
   )
 
   return (
-    <div className="products-list mb-3">
+    <div className="products-list mb-4">
       <List 
         loading={loadingProducts}
         pagination={false}
@@ -35,7 +35,7 @@ const Products: FC = () => {
             <List.Item key={item.id + 'wqwq'}>
               <Row gutter={24}>
                 <Col className="photo" xl={5} xxl={3}>
-                  <Avatar />
+                  <Avatar src={item.avatarProduct}/>
                 </Col>
                 <Col className="name" xl={8} xxl={12}>
                   {item.productName}

@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react' 
+import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Table, Input, Popover, Button, Typography, Popconfirm } from 'antd'
 import { PieChart } from 'react-minimal-pie-chart'
@@ -182,7 +182,7 @@ const ApplicationsVT: FC = () => {
           </Button>
       </Popover>
     )  
-  }
+  } 
 
   const dataSource = Object.keys(clients).map((item, index) => ({
     key: clients[item].id,
@@ -211,7 +211,17 @@ const ApplicationsVT: FC = () => {
       <div className="client-search-wrapper">
         <Input.Search
           placeholder="Поиск клиента...."
-          allowClear 
+          allowClear
+          onChange={(event) => {
+            if ( event.target.value.length === 0 ) {
+              userData?.data.companyId && dispatch(getClient(userData?.data.companyId, ''));
+            }
+          }}
+          onSearch={(value) => {
+            if(value.length >= 1){
+              userData?.data.companyId && dispatch(getClient(userData?.data.companyId, value));
+            }
+          }} 
         />
         <ModalCientAdd />
       </div> 

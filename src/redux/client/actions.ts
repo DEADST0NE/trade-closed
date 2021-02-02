@@ -41,18 +41,19 @@ import { clientsType, categoryClientType } from './types'
     payload: error,
   }); 
 
-  const getClientRequest = async (companieId: string) => {
+  const getClientRequest = async (companieId: string, searchText?: string) => {
     return axios.get('company/clients', {
       params: {
         companieId,
+        searchText
       }
     })
       .then((response) => response.data);
   };  
 
-  export const getClient = (companieId: string) :thunkType => (dispatch) => {
+  export const getClient = (companieId: string, searchText?: string) :thunkType => (dispatch) => {
     dispatch(getClientRequested());
-    getClientRequest(companieId)
+    getClientRequest(companieId, searchText)
       .then((data) => dispatch(getClientSuccess(data)))
       .catch((err) => dispatch(getClientError(err)));
   };

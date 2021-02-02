@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { NavLink, useRouteMatch } from 'react-router-dom' 
 
 import { PageHeader, Menu, Spin } from 'antd'
 
@@ -13,9 +12,10 @@ interface matchType {
   categoryId: string
 }
 
-const Categories: FC<RouteComponentProps<matchType>> = ({ match }) => {
+const Categories: FC = () => {
 
   const dispatch = useDispatch(); 
+  const match = useRouteMatch<matchType>();
   const { userData } = useSelector( (state: StateType) => state.user );
 
   useEffect(() => {
@@ -63,4 +63,4 @@ const Categories: FC<RouteComponentProps<matchType>> = ({ match }) => {
   )
 }
 
-export default withRouter(Categories)
+export default Categories

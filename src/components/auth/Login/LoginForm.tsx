@@ -1,8 +1,8 @@
-import React, { ComponentClass } from 'react' 
+import { FC } from 'react' 
 import { Form, Input, Button } from 'antd';
 import { LoginOutlined, LockOutlined, MailOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import { StateType } from '../../../redux/reducers';
 import { loginUser } from '../../../redux/user/actions';
@@ -12,12 +12,15 @@ type valuesFormType = {
   password: string;
 }; 
 
-const LoginForm: ComponentClass = withRouter(({history}) => {
+const LoginForm: FC = () => {
+
   const dispatch = useDispatch();
+  const history = useHistory();
   const { loading, error } = useSelector( (state: StateType) => state.user ); 
   const onFinish = (values: valuesFormType) => {
     dispatch(loginUser(values, history.push))
   };
+  
   return (
     <Form
       name="login"
@@ -71,6 +74,6 @@ const LoginForm: ComponentClass = withRouter(({history}) => {
       </Form.Item>
     </Form>
   );
-})
+}
 
 export default LoginForm;

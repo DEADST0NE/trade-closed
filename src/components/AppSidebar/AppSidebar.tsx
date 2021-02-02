@@ -1,14 +1,14 @@
 import { FC } from 'react'
 import { Layout, Menu } from 'antd'
-import { NavLink, withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { NavLink, useLocation } from 'react-router-dom' 
 
 
 import Icon from '../generic/Icon';
 
 import './AppSidebar.scss'
 
-const AppSidebar: FC<RouteComponentProps> = ({ location }) => { 
+const AppSidebar: FC = () => { 
+  const location = useLocation();
   return (
     <Layout.Sider className="sidebar" theme="light" breakpoint="lg" collapsedWidth="0"> 
       <Menu mode="inline" selectedKeys={[`/${location.pathname.split('/')[1]}`]}>
@@ -47,4 +47,4 @@ const AppSidebar: FC<RouteComponentProps> = ({ location }) => {
   )
 }
 
-export default withRouter(AppSidebar)
+export default AppSidebar

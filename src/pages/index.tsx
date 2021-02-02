@@ -40,7 +40,7 @@ const Pages: FC = () => (
               <Route path="/manufacturers" exact>
                 <ManufacturePage />
               </Route>
-              <Route path="/editing/:category?" exact>
+              <Route path="/editing/:categoryId?" exact>
                 <EditingPage />
               </Route>
               <Route path="/create-application">

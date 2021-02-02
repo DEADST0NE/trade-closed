@@ -1,15 +1,16 @@
-import React, { ComponentClass } from 'react' 
+import { FC } from 'react' 
 import { useSelector } from 'react-redux'
 import { Avatar, Button, Popover } from 'antd'
 import { LogoutOutlined } from '@ant-design/icons'
 
 import { resetAuthData } from '../../services/authService'
 import { StateType } from '../../redux/reducers'
-import { withRouter } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-const Account: ComponentClass = withRouter(({ history }) => {
+const Account: FC = () => {
+  const history = useHistory();
 
-  const logout = ():void => {
+  const logout = (): void => {
     resetAuthData();
     history.push('/login');
   }
@@ -53,6 +54,6 @@ const Account: ComponentClass = withRouter(({ history }) => {
       </Avatar>
     </Popover>
   )
-})
+}
 
 export default Account

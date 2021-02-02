@@ -15,7 +15,7 @@ const Login: FC = () => (
         <div className="login-left-content">
           <div className="login-left-header">
             <img src={logo} alt="logo" />
-            <span>OMMERCE</span>
+            <span>RADE</span>
           </div>
           <div className="login-left-body">
             <div className="login-left-title-wrapper">

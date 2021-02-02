@@ -142,8 +142,7 @@ const ManufactureTable: FC = () => {
             if(value.length >= 1){
               userData?.data.companyId && dispatch(searchManufacturers(userData?.data.companyId, value));
             }
-          }}
-          
+          }} 
         />
         <ModalManufacturePost />
       </div> 

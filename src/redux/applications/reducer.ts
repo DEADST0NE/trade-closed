@@ -3,6 +3,10 @@ import {
   APPLICATIONS_GET_SUCCESS,
   APPLICATIONS_GET_ERROR, 
 
+  APPLICATION_POST_REQUEST,
+  APPLICATION_POST_SUCCESS,
+  APPLICATION_POST_ERROR,
+
   STAGE_POST_REQUEST,
   STAGE_POST_SUCCESS,
   STAGE_POST_ERROR,
@@ -20,6 +24,10 @@ import {
   DETAIL_PAYMENT_POST_SUCCESS,
   DETAIL_PAYMENT_POST_ERROR,
   DETAIL_PAYMENT_POST_REQUEST,
+
+  DETAIL_PAYMENT_PUT_SUCCESS,
+  DETAIL_PAYMENT_PUT_ERROR,
+  DETAIL_PAYMENT_PUT_REQUEST,
 } from '../actions';
 
 import { initStateType, ApplicationsActionsType } from './types'
@@ -29,6 +37,10 @@ const INIT_STATE: initStateType = {
     applications: [],
     loading: false,
     error: null,
+    
+    applicationPost: null,
+    loadingPost: false,
+    errorPost: null,
   // Этап
     stageLoading: false,
     stageError: null,
@@ -57,6 +69,7 @@ const reducer = (state = INIT_STATE, action: ApplicationsActionsType): initState
       case APPLICATIONS_GET_REQUEST:
         return {
           ...state,
+          applicationPost: null,
           loading: true,
           error: null,
         };
@@ -66,6 +79,30 @@ const reducer = (state = INIT_STATE, action: ApplicationsActionsType): initState
           ...state,
           applications: action.payload,
           loading: false,
+        };
+    // ----------
+    // Добаавление заявки
+      case APPLICATION_POST_ERROR:
+        return {
+          ...state,
+          loadingPost: false, 
+          errorPost: action.payload,
+        };
+
+      case APPLICATION_POST_REQUEST:
+        return {
+          ...state,
+          applicationPost: null,
+          loadingPost: true,
+          errorPost: null,
+        };
+
+      case APPLICATION_POST_SUCCESS: 
+        return {
+          ...state,
+          applicationPost: action.payload,
+          loadingPost: false,
+          errorPost: null,
         };
     // ----------
     // Смена этапа
@@ -164,6 +201,26 @@ const reducer = (state = INIT_STATE, action: ApplicationsActionsType): initState
           errorPayments: action.payload
         };
     //
+    //Изменение оплаты
+    case DETAIL_PAYMENT_PUT_REQUEST: 
+    return {
+      ...state,
+      loadingPayments: true,
+      errorPayments: null,
+    };
+
+  case DETAIL_PAYMENT_PUT_SUCCESS: 
+    return {
+      ...state,
+      loadingPayments: false,
+    };
+
+  case DETAIL_PAYMENT_PUT_ERROR: 
+    return {
+      ...state,
+      loadingPayments: false,
+    };
+//
     
     default:
       return state;

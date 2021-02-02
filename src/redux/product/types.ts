@@ -17,6 +17,7 @@ import {
   PRODUCTS_SEARCH_SUCCESS,
   PRODUCTS_SEARCH_ERROR,
   PRODUCTS_MANUFACTURE_FILTER,
+  PRODUCTS_CLIENT_CATEGORY_CLIENT_FILTER,
 } from '../actions';
 
 export interface errorType {
@@ -86,6 +87,7 @@ export type initStateType = {
   deleteLoading: boolean;
   error: errorType | null;
   filterManufacture: string[];
+  filterClientCategory: string[];
 } 
 
 interface productGetErrorType {
@@ -151,6 +153,10 @@ interface productManufactureFilterType {
   type: typeof PRODUCTS_MANUFACTURE_FILTER;
   payload: string;
 }
+interface productClientCategoryFilterType {
+  type: typeof PRODUCTS_CLIENT_CATEGORY_CLIENT_FILTER;
+  payload: string;
+}
 
 export type ProductActionsType =
   | productGetErrorType
@@ -170,4 +176,5 @@ export type ProductActionsType =
   | productSearchErrorType
   | productSearchSuccessType
   | productSearchRequestType
-  | productManufactureFilterType;
+  | productManufactureFilterType
+  | productClientCategoryFilterType;

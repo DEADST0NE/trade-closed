@@ -13,7 +13,7 @@ const AppHeader: FC = () => {
     <Layout.Header className="header site-layout-background">
       <div className="logo">
         <img src={logo} alt="logo" />
-        <span>OMMERCE</span>
+        <span>RADE</span>
       </div>
       <Account />
     </Layout.Header> 

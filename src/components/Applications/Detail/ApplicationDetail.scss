@@ -130,6 +130,13 @@
 .products-list {
   padding: 0px 10px; 
   li {
+    img {
+      margin: 0 auto;
+      width: auto;
+      height: 100%;
+      max-width: 100%;
+      object-fit: scale-down;
+    }
     border: none !important;
     padding: 5px 0px; 
   }
@@ -157,7 +164,19 @@
 }
 
 .payments-list {
-  padding: 0px 10px; 
+  padding: 0px 10px;
+  .ant-typography {
+    margin-bottom: 0px !important;
+  }
+  .ant-row {
+    border-radius: 3px; 
+  }
+  .ant-row.hoverend {
+    &:hover {
+      background-color: #efefef;
+      cursor: pointer;
+    }
+  } 
   li {
     border: none !important;
     padding: 5px 0px; 
@@ -188,7 +207,7 @@
       }
     }
     .count {
-      justify-content: flex-end;
+      justify-content: flex-end; 
     }
   } 
   .payments-total {

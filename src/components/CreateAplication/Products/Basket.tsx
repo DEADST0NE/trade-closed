@@ -1,14 +1,13 @@
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { List, Row, Col, Avatar, PageHeader, Button, Popconfirm, Empty } from 'antd'
-import { RouteComponentProps } from 'react-router'
+import { List, Row, Col, Avatar, PageHeader, Button, Popconfirm, Empty } from 'antd' 
 
 import { MinusOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 
 import { addBasketProduct, deleteBasketProduct, clearBasketProduct } from '../../../redux/basket/actions'
 
 import { StateType } from '../../../redux/reducers'
-import { NavLink, withRouter } from 'react-router-dom'
+import { NavLink, useRouteMatch } from 'react-router-dom'
 
 const BasketPageTitle = () => {
   const dispatch = useDispatch();
@@ -33,8 +32,9 @@ const BasketPageTitle = () => {
   )
 }
 
-const Basket: FC<RouteComponentProps> = ({match}) => {
-  const dispatch = useDispatch(); 
+const Basket: FC = () => {
+  const dispatch = useDispatch();
+  const match = useRouteMatch();
   const { basket } = useSelector( (state: StateType) => state.basket ); 
   return (
     <div className="create-application-product-basket">
@@ -84,7 +84,7 @@ const Basket: FC<RouteComponentProps> = ({match}) => {
                 </span>
             </div>
             <Button className="btn-confirm-list-products" type="primary" >
-              <NavLink to={`${match.url}/payment`}>
+              <NavLink to={`${match.url}/confirmation`}>
                 Подтвердить список товаров
               </NavLink> 
             </Button>
@@ -99,4 +99,4 @@ const Basket: FC<RouteComponentProps> = ({match}) => {
   )
 }
 
-export default withRouter(Basket);
+export default Basket;

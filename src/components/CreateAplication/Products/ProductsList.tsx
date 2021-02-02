@@ -1,11 +1,14 @@
 import { FC, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux' 
-import { PageHeader, Col, Row , Popover, Spin, Card, Button, Input} from 'antd'
-import { withRouter } from 'react-router-dom'
+import { PageHeader, Col, Row , Popover, Spin, Card, Button, Input, Empty} from 'antd'
+import { useRouteMatch } from 'react-router-dom'
 
 import { addBasketProduct, deleteBasketProduct } from '../../../redux/basket/actions'
 import { getProductslazy, getProducts } from '../../../redux/product/actions'
 import { StateType } from '../../../redux/reducers'
+
+import FilterCategoryClient from '../../Filter/FilterCategoryClient'
+import FilterManufacture from '../../Filter/FilterManufacture'
 
 import { QuestionCircleOutlined, PlusOutlined, MinusOutlined } from '@ant-design/icons'
 
@@ -16,7 +19,7 @@ const InfoProduct: FC<{ text?: string | null }> = ({text}) => { // Подроб�
       <QuestionCircleOutlined />
     </Popover> 
   )
-}  
+}
 
 const Product = () => {
   return (
@@ -34,7 +37,11 @@ const Product = () => {
             onSearch={(value) => {
               console.log(value);
             }}
-          /> 
+          />
+        </div>
+        <div className="filter-product">
+          <FilterManufacture />
+          <FilterCategoryClient /> 
         </div>
         <ProductList />
       </div>
@@ -42,8 +49,14 @@ const Product = () => {
   )
 }
 
-const ProductList: any = withRouter(({match}) => {
+interface matchParams {
+  categoryId: string,
+  clientId: string
+}
+
+const ProductList: any = () => {
   const dispatch = useDispatch(); 
+  const match = useRouteMatch<matchParams>();
   const { userData } = useSelector( (state: StateType) => state.user );
   const { products, loading, error, productsLazyLoading } = useSelector( (state: StateType) => state.product );
   const { clients } = useSelector( (state: StateType) => state.client );
@@ -75,9 +88,9 @@ const ProductList: any = withRouter(({match}) => {
 
   if(!Object.keys(products).length) {
     return (
-      <>
-      <h1>Поиск не дал результатов</h1>
-      </>
+      <div className="products-empty">
+        <Empty description="Не найдено"/>
+      </div>
     )
   }
 
@@ -90,9 +103,9 @@ const ProductList: any = withRouter(({match}) => {
     };
   }
 
-  const clientPrice = (array: clientPriceType[]) => (
-    array.find((item) => (item.category.value === clients[match.params?.clientId]?.clientsCategory?.value))
-  ) 
+  const clientPrice = (array: clientPriceType[]) => { 
+    return array.find((item) => (item.category.value === clients[match.params?.clientId]?.clientsCategory?.value))
+  } 
   return (
     <>
       <div className="product-list" onScroll={ event => onScrollList(event)}>
@@ -150,6 +163,6 @@ const ProductList: any = withRouter(({match}) => {
       {productsLazyLoading ? <div className="lizy-loader"><Spin className="products-lazy-loading"/></div> : null}
     </>
   )
-})
+}
 
 export default Product

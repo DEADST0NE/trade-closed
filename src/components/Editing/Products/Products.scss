@@ -119,6 +119,12 @@
   padding: 0px 25px;
   height: calc(100vh - 152px);
   background-color: #fff;
+  .ant-empty {
+    padding-top: 10%;
+    .ant-empty-description {
+      font-size: 11px;
+    }
+  }
   .products-lazy-loading {
     .ant-spin-dot {
       font-size: 17px;
@@ -301,13 +307,20 @@
 }
 
 .listFilters { 
-  text-align: start; 
+  text-align: start;
+  button {
+    margin-right: 10px;
+  } 
   .title-filter {
     font-size: 11px;
     span {
       font-size: 10px;
     }
   }
+}
+
+.filter-content-price {
+  width: 250px;
 }
 
 .filter-content {

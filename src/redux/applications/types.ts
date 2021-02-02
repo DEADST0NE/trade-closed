@@ -3,6 +3,10 @@ import {
   APPLICATIONS_GET_SUCCESS,
   APPLICATIONS_GET_ERROR, 
 
+  APPLICATION_POST_REQUEST,
+  APPLICATION_POST_SUCCESS,
+  APPLICATION_POST_ERROR,
+
   STAGE_POST_REQUEST,
   STAGE_POST_SUCCESS,
   STAGE_POST_ERROR,
@@ -20,6 +24,10 @@ import {
   DETAIL_PAYMENT_POST_SUCCESS,
   DETAIL_PAYMENT_POST_ERROR,
   DETAIL_PAYMENT_POST_REQUEST,
+
+  DETAIL_PAYMENT_PUT_SUCCESS,
+  DETAIL_PAYMENT_PUT_ERROR,
+  DETAIL_PAYMENT_PUT_REQUEST,
 } from '../actions';
 
 export interface errorType { 
@@ -56,6 +64,10 @@ export type initStateType = {
   loading: boolean;
   error: errorType | null;
 
+  applicationPost: applicationType | null,
+  loadingPost: boolean;
+  errorPost: errorType | null;
+
   stageLoading: boolean;
   stageError: errorType | null,
 
@@ -82,6 +94,18 @@ interface applicationsGetErrorType {
   payload: errorType
 }
 
+interface applicationPostRequestType {
+  type: typeof APPLICATION_POST_REQUEST;
+}
+interface applicationPostSuccessType {
+  type: typeof APPLICATION_POST_SUCCESS;
+  payload: any
+}
+interface applicationPostErrorType {
+  type: typeof APPLICATION_POST_ERROR;
+  payload: errorType
+}
+
 interface stagesPostRequestType {
   type: typeof STAGE_POST_REQUEST;
 }
@@ -100,6 +124,7 @@ export interface errorType {
 
 interface productsType {
   id: string;
+  avatarProduct: string;
   productName: string;
   count: number;
   total: number;
@@ -168,10 +193,25 @@ interface detailPostPaymentError {
   payload: errorType
 }
 
+interface detailPutPaymentRequest {
+  type: typeof DETAIL_PAYMENT_PUT_REQUEST;
+}
+
+interface detailPutPaymentSuccess {
+  type: typeof DETAIL_PAYMENT_PUT_SUCCESS; 
+}
+
+interface detailPutPaymentError {
+  type: typeof DETAIL_PAYMENT_PUT_ERROR; 
+}
+
 export type ApplicationsActionsType =
   | applicationsGetRequestType
   | applicationsGetSuccessType
   | applicationsGetErrorType
+  | applicationPostRequestType
+  | applicationPostSuccessType
+  | applicationPostErrorType
   | stagesPostRequestType
   | stagesPostSuccessType
   | stagesPostErrorType
@@ -184,4 +224,7 @@ export type ApplicationsActionsType =
   | detailGetPaymentsError
   | detailPostPaymentRequest
   | detailPostPaymentSuccess
-  | detailPostPaymentError;;
+  | detailPostPaymentError
+  | detailPutPaymentRequest
+  | detailPutPaymentSuccess
+  | detailPutPaymentError;

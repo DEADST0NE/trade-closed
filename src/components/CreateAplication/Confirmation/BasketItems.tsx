@@ -1,11 +1,12 @@
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { List, Row, Col, Avatar, PageHeader, Button, Popconfirm, Empty } from 'antd'
+import { List, Row, Col, Avatar, PageHeader, Button, Popconfirm, Empty, Progress } from 'antd'
 
 import { MinusOutlined, PlusOutlined, DeleteOutlined } from '@ant-design/icons'
 
-import { addBasketProduct, deleteBasketProduct, clearBasketProduct } from '../../../redux/basket/actions'
+import Icon from '../../generic/Icon'
 
+import { addBasketProduct, deleteBasketProduct, clearBasketProduct } from '../../../redux/basket/actions'
 import { StateType } from '../../../redux/reducers'
 
 const BasketPageTitle = () => {
@@ -50,13 +51,22 @@ const BasketItems: FC = () => {
                   Object.keys(basket)?.map((item) => (
                     <List.Item key={basket[item].product.id + 'basket'}>
                       <Row gutter={[20, 10]}>
-                        <Col className="product-img" xl={5} xxl={2}>
+                        <Col className="product-img"  xxl={2} xl={2} lg={2} md={3} sm={4}>
                           <Avatar shape="square" src={basket[item].product.avatarProduct}/>
                         </Col>
-                        <Col className="name" xl={8} xxl={13} title={basket[item].product.name}>
+                        <Col className="name"  xxl={14} xl={13} lg={13} md={12} sm={11} title="Дитализация по оплате">
                           {basket[item].product.name}
+                          {
+                            basket[item].ditailPayProcent ? (
+                              <div className="ditail-pay">
+                                <Icon name="money" />
+                                <Progress percent={basket[item].ditailPayProcent} />
+                              </div>
+                            ) : null
+                          }
+                          
                         </Col>
-                        <Col className="quantity" xl={5} xxl={4}>
+                        <Col className="quantity" xxl={4} xl={4} lg={4} md={4} sm={4}>
                           <div className="quantity-wrapper">
                             <div className="resize-quantity">
                               <Button icon={<PlusOutlined />} onClick={() => dispatch(addBasketProduct(basket[item].product))}/>
@@ -65,11 +75,10 @@ const BasketItems: FC = () => {
                             </div> 
                           </div>
                         </Col>
-                        <Col className="count" xl={6} xxl={5}>
+                        <Col className="count"  xxl={4} xl={5} lg={5} md={5} sm={5}>
                           {basket[item].product.price?.count} ₽
                         </Col> 
-                      </Row>
-                      
+                      </Row> 
                     </List.Item>
                   ))
                 } 
@@ -83,7 +92,7 @@ const BasketItems: FC = () => {
             </div> 
           </>
         ) : (
-          <div className="empty-cart">
+          <div className="empty-basket-list">
             <Empty description=""/>
           </div> 
         )

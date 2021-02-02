@@ -1,8 +1,14 @@
 import { FC } from 'react'
 import { useSelector } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
-import { Avatar, Spin, Alert } from 'antd'
+import { useRouteMatch } from 'react-router-dom'
+import { Avatar, Spin, PageHeader } from 'antd'
+
+import { 
+  MailOutlined, 
+  PhoneOutlined, 
+  PartitionOutlined, 
+  CalendarOutlined 
+} from '@ant-design/icons';
 
 import { StateType } from '../../../redux/reducers'
 
@@ -10,48 +16,64 @@ interface matchParams {
   clientId: string;
 }
 
-const ClientInfo: FC<RouteComponentProps<matchParams>> = ({ match }) => {
+const ClientInfo: FC = () => {
+  const match = useRouteMatch<matchParams>();
   const { clients, loading } = useSelector( (state: StateType) => state.client ); 
   const client = clients[match.params.clientId];
   return (
-    <div className="confirmation-client"> 
-      <div className="confirmation-client-body">
-        {
-          loading ? (
-            <Spin /> 
-          ) : (
-            <>
-              <div className="confirmation-client-avatar">
-                <Avatar size="large" shape="square" style={{ backgroundColor: '#7265e6' }}>
-                  {client?.name[0]}
-                </Avatar>
-                  <span className="client-name">{client?.name}</span> 
+    <div className="confirmation-client">
+      <PageHeader
+        ghost={false} 
+        className="page-header-create-application"
+        title="Клиент"
+      />
+      {
+        loading ? (
+          <Spin /> 
+        ) : (
+          <div className="confirmation-client-info">
+            <div className="confirmation-client-avatar">
+              <Avatar size="large" shape="square"  style={{ backgroundColor: '#929292' }}>
+                {client?.name[0]}
+              </Avatar>
+              <div>
+                <span className="client-name">{client?.name}</span>
+                <span className="client-small">{client?.address}</span>
               </div>
-              <div className="client-info"> 
-                <Alert 
-                  message={ client?.debt.count <= 0 ? 'Задолжность клиента отсутствует' : 'Задолжность клиента' }
-                  description={ client?.debt.count <= 0 ? false : `Сумма долга: ${client?.debt.count} ₽` }
-                  type={ client?.debt.count <= 0 ? 'success' : 'warning' }
-                  showIcon
-                  closable
-                />
-                <ul>
-                  <li>Адресс: <span>{client?.address}</span></li>
-                  <li>Почта: <span>{client?.email}</span></li>
-                  <li>Телефон: <span>{client?.phone}</span></li>
-                  <li>Дата добавления: <span>{client?.dateAdd}</span></li>
-                  <li>Категория: <span>
-                    {client?.clientsCategory?.label || "Категория клиента не заданна"}
-                    </span>
-                  </li>
-                </ul> 
+            </div>
+            <ul>
+              <li>
+                <MailOutlined />Почта:
+                <span>{client?.email}</span>
+              </li>
+              <li>
+                <PhoneOutlined />Телефон:
+                <span>{client?.phone}</span>
+              </li>
+              <li>
+                <PartitionOutlined />Категория клиента:
+                <span>{client?.clientsCategory.label}</span>
+              </li>
+              <li>
+                <CalendarOutlined />Дата добавления:
+                <span>{client?.dateAdd}</span>
+              </li>
+            </ul>
+            <div className="statistic-client">
+              <div className="statistic-application">
+                {client?.applicationStatistic.count}
+                <span>Заявки</span>
               </div>
-            </>
-          )
-        }
-      </div>
+              <div className="statistic-debt">
+                {client?.debt.count}
+                <span>Задолженность</span>
+              </div>
+            </div>
+          </div>
+        )
+      }
     </div>
   )
 }
 
-export default withRouter(ClientInfo)
+export default ClientInfo

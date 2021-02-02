@@ -5,7 +5,7 @@ import { DownOutlined, LoadingOutlined } from "@ant-design/icons"
 
 import { stagesTeg } from '../../../utils/stagesTag'
 
-import { postApplications } from '../../../redux/applications/actions'
+import { postStage } from '../../../redux/applications/actions'
 import { StateType } from '../../../redux/reducers'
 
 const Stages: FC = () => {
@@ -34,7 +34,7 @@ const Stages: FC = () => {
             okText="Да" 
             onConfirm={ () => { 
               if(detailInfo?.id && userData && item) 
-                dispatch(postApplications(detailInfo.id, userData?.data?.id, item.value));
+                dispatch(postStage(detailInfo.id, userData?.data?.id, item.value));
             } }
             cancelText="Нет">
               {item.label}

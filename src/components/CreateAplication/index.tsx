@@ -1,12 +1,10 @@
 import { FC, useState, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Steps, PageHeader, Spin } from 'antd'
-import { Switch, Route, withRouter } from 'react-router-dom'
-import { RouteComponentProps } from 'react-router'
+import { Switch, Route, useLocation } from 'react-router-dom' 
 
 import Products from './Products';
-import Confirmation from './Confirmation'
-import Payment from './Payment'
+import Confirmation from './Confirmation' 
 import Clients from './Clients'
 
 import { getClient } from '../../redux/client/actions' 
@@ -24,21 +22,17 @@ const steps = [
     title: 'Товар',
     url: '/create-application/:clientId/category/:categoryId?/products',
     description: "Выбор товара"
-  },
-  {
-    title: 'Оплата',
-    url: '/create-application/client/product/payment',
-    description: "Добавление оплаты"
   }, 
   {
     title: 'Подтверждение',
-    url: '/create-application/client/product/payment/confirmation',
+    url: '/create-application/client/product/confirmation',
     description: "Регистрирование заявки"
   },
 ];
 
-const CreateAplication: FC<RouteComponentProps> = ({ location, match }) => {
+const CreateAplication: FC = () => {
   const dispatch = useDispatch(); 
+  const location = useLocation();
   const [current, setCurrent] = useState(0);
   
   useEffect( () => {
@@ -77,18 +71,15 @@ const CreateAplication: FC<RouteComponentProps> = ({ location, match }) => {
             </Route>
             <Route path="/create-application/:clientId/category/:categoryId?/products" exact>
               <Products />
-            </Route>
-            <Route path="/create-application/:clientId/category/:categoryId?/products/payment" exact>
-              <Payment />
-            </Route>
-            <Route path="/create-application/:clientId/category/:categoryId?/products/payment/confirmation" exact>
+            </Route> 
+            <Route path="/create-application/:clientId/category/:categoryId?/products/confirmation" exact>
               <Confirmation />
             </Route>
           </Switch>
         </Suspense>
-      </div>  
+      </div>
     </div>
   )
 }
 
-export default withRouter(CreateAplication)
+export default CreateAplication

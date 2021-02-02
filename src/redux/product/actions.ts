@@ -21,6 +21,7 @@ import {
   PRODUCTS_SEARCH_SUCCESS,
   PRODUCTS_SEARCH_ERROR,
   PRODUCTS_MANUFACTURE_FILTER,
+  PRODUCTS_CLIENT_CATEGORY_CLIENT_FILTER,
   thunkType
 } from '../actions';
 
@@ -29,6 +30,10 @@ import { productsTypeObject, productType } from './types'
 // Фильтр для продуктов
   export const productManufactureFilter = (item: string) => ({
     type: PRODUCTS_MANUFACTURE_FILTER,
+    payload: item,
+  });
+  export const productClientCanegoryFilter = (item: string) => ({
+    type: PRODUCTS_CLIENT_CATEGORY_CLIENT_FILTER,
     payload: item,
   });
 //---------------------
@@ -48,22 +53,30 @@ import { productsTypeObject, productType } from './types'
     payload: error,
   }); 
 
-  const getProductsRequest = async (id: string, typeId: string, skip: number, take: number, manufactureFilter?: string[]) => {
+  const getProductsRequest = async (
+    id: string, 
+    typeId: string, 
+    skip: number, 
+    take: number, 
+    manufactureFilter?: string[], 
+    clientCatygoryFilter?: string[]
+    ) => {
     return axios.get('product/', {
       params: {
         companyId: id,
         categoryId: typeId,
         skip,
         take,
-        manufactureFilter
+        manufactureFilter,
+        clientCatygoryFilter
       }
     })
       .then((response) => response.data);
   };  
 
-  export const getProducts = (id: string, typeId: string, skip: number, take: number, manufactureFilter?: string[]) :thunkType => (dispatch) => {
+  export const getProducts = (id: string, typeId: string, skip: number, take: number, manufactureFilter?: string[], clientCatygoryFilter?: string[]) :thunkType => (dispatch) => {
     dispatch(getProductsRequested());
-    getProductsRequest(id, typeId, skip, take, manufactureFilter)
+    getProductsRequest(id, typeId, skip, take, manufactureFilter, clientCatygoryFilter)
       .then((data) => {
         dispatch(getProductsSuccess(data))
       })
