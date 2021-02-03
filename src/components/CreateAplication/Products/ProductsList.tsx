@@ -77,7 +77,11 @@ const ProductList: any = () => {
   }
 
   if (loading) {
-    return <Spin />
+    return (
+      <div className="product-loading">
+        <Spin />
+      </div>
+    )
   }
 
   if (error) (

@@ -40,7 +40,7 @@ import {
 
 import { applicationType, stagesType } from './types'
 
-import { deleteBasketPaymentAll, clearBasketProduct } from '../basket/actions'
+import { changeBasketPayment, clearBasketProduct } from '../basket/actions'
 
 // Детали заявки
 export const setApplicationsDetail = (data: any) => ({
@@ -99,7 +99,7 @@ const postApplicationRequest = async (
     clientId: string,
     products: any,
     userId: string,
-    payments: number[],
+    payments: number,
   ) => {
   return axios
     .post('application/application', {
@@ -115,7 +115,7 @@ export const postApplication = (
     clientId: string,
     products: any,
     userId: string,
-    payments: number[],
+    payments: number,
     setIsModalVisible: Dispatch<SetStateAction<boolean>>,
     history: History<unknown>, 
   ) :thunkType => (dispatch) => {
@@ -127,7 +127,7 @@ export const postApplication = (
         setIsModalVisible(false);
         history.push("/applications");
         dispatch(clearBasketProduct());
-        dispatch(deleteBasketPaymentAll());
+        dispatch(changeBasketPayment(0));
       }, 2000)
     })
     .catch((err) => dispatch(postApplicationError(err)));

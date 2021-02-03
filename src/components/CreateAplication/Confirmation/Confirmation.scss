@@ -96,7 +96,7 @@
     }
     .confirmation-basket {
       background-color: #fff;
-      border-radius: 5px; 
+      border-radius: 5px;
       .ant-page-header-heading-left {
         width: 100%;
         .ant-page-header-heading-title {
@@ -120,240 +120,134 @@
       }
       .basket-list {
         padding: 10px 25px;
-        height: calc( 100vh - 328px);
-        overflow-y: auto;
-        overflow-x: hidden;
-        li {
-          &::marker {
-            background-color: red;
-          }
+        .ant-table-tbody { 
+          td {
+            border-bottom: 0;
+          } 
         }
-        .ant-list-item {
-          border: 0;
-          .ant-row {
-            display: flex;
-            align-items: center;
-            width: 100%;
-            margin: 0px !important;
-            .ant-col { 
-              &:last-child{
-                padding-right: 0 !important;
-              }
-            }
+        .ant-table-wrapper {
+          width: 100%;
+          height: calc(100vh - 460px);
+          .ant-table-body {
+            max-height: calc(100vh - 530px) !important; 
           }
-          .ant-avatar {
-            img {
-              margin: 0 auto;
-              width: auto;
-              height: 100%; 
-              max-width: 100%;
-              object-fit: scale-down;
-            }
-          }
-          .name {
-            font-size: 14px;
-            text-align: start;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            .ditail-pay {
-              display: flex;
-              align-items: flex-end;
-              svg {
-                width: 18px;
-                height: 18px;
-                margin-right: 10px;
-              }
-              .ant-progress-bg {
-                height: 5px !important;
-              }
-            }
-          }
-          .quantity {
-            text-align: end;
-            line-height: 1;
-            .quantity-wrapper {
-              position: relative;
-              .resize-quantity {
-                text-align: center;
-                button { 
-                  display: none !important;
-                  width: 100%;
-                  display: flex;
-                  text-align: center;
-                  justify-content: center;
-                  font-size: 13px;
-                  svg {
-                    font-size: 13px;
-                  }
-                  .anticon-delete {
-                    color: red;
-                  }
-                }
-              }
-            }
-            &:hover {
-              line-height: 1.5 !important;
-              .resize-quantity {
-                background-color: #f1f1f1;
-                z-index: 10;
-                position: absolute;
-                text-align: center;
-                width: 40px;
-                top: -42px;
-                right: 35%;
-                button { 
-                  display: block !important;
-                }
-              } 
-            }  
-          }
-          .count {
-            color: black;
-            font-weight: 400;
-            text-align: end;
-          }
-          .delete-basket-product {
-            font-size: 13px;
-            svg {
-              font-size: 13px;
-            }
-            :hover {
-              color: #ec3939;
-            }
-          }
-        }
-      }
-      .basket-total {
-        text-align: end;
-        font-size: 18px;
-        padding-right: 25px;
-        padding-bottom: 20px;
-        padding-top: 20px;
-        border-top: 1px solid #efecec;
-        span {
-          padding-left: 5px;
-          font-weight: 500;
-        }
-      }
-    }
-    .confirmation-payments {
-      background-color: #fff;
-      border-radius: 5px;
-      position: relative;
-      height: calc(100vh - 215px);
-      padding-bottom: 40px;
-      .btn-add-payment {
-        padding: 0;
-        position: absolute;
-        top: 10px;
-        right: 15px;
-        width: 28px;
-        height: 28px;
-        font-size: 16px;
-        border: 0;
-      }
-      .confirmation-payments-list {
-        height: calc(100vh - 370px);
-        padding: 0px 25px; 
-        position: relative; 
-        .ant-list-split {
-          height: calc(100vh - 425px);
-          overflow-y: auto; 
-        }
-        .ant-list-item { 
-          font-size: 13px;
-          border-bottom: 0 !important;
-          .ant-row {
-            width: 100%; 
-            margin: 0px !important;
-          }
-          .number {
-            font-size: 11px;
-            padding-left: 0px !important;
-            span {
-              font-size: 13px;
-              padding-left: 2px;
-            }
-          }
-          .employee-name { 
-            div {
-              white-space: nowrap;
-              span {
-                display: block;
-                font-size: 12px;
-                color: #808080;
-              }
-            }
-          }
-          .date {
-            display: flex;
-            align-items: center; 
-          }
-          .count {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;  
-          }
-          .delete {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            cursor: pointer;
-            padding-right: 0px !important;
-          }
-        }
-        .sum-payments-count { 
+        } 
+        .ditail-pay {
           display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          font-size: 16px;
-          height: 55px;
-          span {
-            padding-left: 7px;
-            font-weight: 500;
+          align-items: flex-end;
+          svg {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
           }
+          .ant-progress-bg {
+            height: 5px !important;
+          }
+        } 
+        .ant-avatar {
+          img {
+            margin: 0 auto;
+            width: auto;
+            height: 100%; 
+            max-width: 100%;
+            object-fit: scale-down;
+          }
+        } 
+      }
+      .sum-total-product {
+        text-align: end;
+        padding-right: 20px;
+        font-size: 16px;
+        padding-bottom: 15px;
+        font-weight: 400;
+        color: #919090;
+        span {
+          color:#262626;
+          font-weight: 500;
+          padding-left: 10px;
         }
       }
-      .none-payments { 
-        height: 95%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-      }
-      .confirmation-payments-info { 
+      .confirmation-basket-result {
+        height: 140px;
         display: flex;
         flex-direction: column;
-        text-align: end; 
-        justify-content: center;
+        align-items: flex-end;
+        padding-right: 20px;
+        padding-top: 15px;
         border-top: 1px solid #efefef;
-        height: 70px;
-        padding-right: 30px;
-        .payments-count {
-          font-size: 16px;
+        padding-bottom: 10px;
+        .pay {
+          display: flex;
+          align-items: center;
+          font-size: 17px;
+          font-weight: 400;
+          color: #919090;
+          .ant-input-number {
+            margin-left: 10px;
+            width: 70px;
+            font-size: 17px;
+            input {
+              font-weight: 500;
+            }
+          }
           span {
+            font-weight: 500;
+            padding-left: 3px;
+            color: #262626;
+          }
+        }
+        .total {
+          padding-top: 5px;
+          font-size: 19px;
+          color: #919090;
+          span {
+            color:#262626;
+            margin-left: 5px;
             font-weight: 500;
           }
         }
-        .remainder-count {
-          font-size: 18px;
-          span {
-            padding-left: 10px;
-            font-weight: 500;
-          }
-        }
-      }
-      .btn-cereate-application {
-        position: absolute;
-        left: 0;
-        width: 100%;
-        bottom: 0;
         button {
-          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 10px;
+          font-size: 20px;
+          padding-bottom: 7px;
+          width: 300px;
+          height: 40px; 
         }
       }
     } 
   } 
+}
+.quantity-wrapper {
+  position: relative;
+  cursor: pointer;
+  &:hover {
+    .resize-quantity button {
+      display: block !important;
+    }
+  }
+  .resize-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    span {
+      width: 40%;
+    }
+    button { 
+      display: none !important;
+      width: 50%;
+      display: flex;
+      text-align: center;
+      justify-content: center;
+      font-size: 13px;
+      svg {
+        font-size: 13px;
+      }
+      .anticon-delete {
+        color: red;
+      }
+    }
+  }
 }

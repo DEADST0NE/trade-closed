@@ -2,14 +2,13 @@ import {
   BASKET_ADD,
   BASKET_DELETE,
   BASKET_CLEAR,
-  BASKET_PAYMENT_ADD,
-  BASKET_PAYMENT_DELETE,
-  BASKET_PAYMENT_DELETE_ALL
+  BASKET_PAYMENT_CHANGE,
+  BASKET_ITEM_DELETE
 } from '../actions'
 
 export interface initStateType {
   basket: basketItemTypeObject
-  payments: number[]
+  payments: number
 } 
 // Добавление товара в корзину
   interface deleteBasketType {
@@ -25,19 +24,17 @@ export interface initStateType {
   interface clearBasket {
     type: typeof BASKET_CLEAR,
   }
+
+  interface deleteItemBasket {
+    type: typeof BASKET_ITEM_DELETE,
+    payload: string
+  }
 //--------------------------
 
 // Добавление оплаты к корзине
-  interface addPaymentBasket {
-    type: typeof BASKET_PAYMENT_ADD;
+  interface changePaymentBasket {
+    type: typeof BASKET_PAYMENT_CHANGE;
     payload: number
-  }
-  interface deletePaymentBasket {
-    type: typeof BASKET_PAYMENT_DELETE;
-    payload: number
-  }
-  interface basketPaymentDeleteAll {
-    type: typeof BASKET_PAYMENT_DELETE_ALL;
   }
 // ---------------------------
 
@@ -45,9 +42,8 @@ export type BasketActionsType =
   | deleteBasketType 
   | addBasket
   | clearBasket
-  | addPaymentBasket
-  | deletePaymentBasket
-  | basketPaymentDeleteAll;
+  | changePaymentBasket
+  | deleteItemBasket;
 
 export interface productType {
   id: string;
@@ -93,6 +89,7 @@ export interface basketItemTypeObject {
       } | undefined
     },
     ditailPayProcent?: number;
+    ditailPayCount?: number;
     count: number
   }
 }

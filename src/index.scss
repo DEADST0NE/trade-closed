@@ -70,6 +70,7 @@ code {
 
 .delete {
   transition: color 0.3s !important;
+  cursor: pointer;
   &:hover {
     color: red !important;
   }

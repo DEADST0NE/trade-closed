@@ -2,9 +2,8 @@ import {
   BASKET_ADD,
   BASKET_DELETE,
   BASKET_CLEAR,
-  BASKET_PAYMENT_ADD,
-  BASKET_PAYMENT_DELETE,
-  BASKET_PAYMENT_DELETE_ALL
+  BASKET_PAYMENT_CHANGE,
+  BASKET_ITEM_DELETE
 } from '../actions'
 
 import { productType } from './types'
@@ -23,17 +22,13 @@ export const clearBasketProduct = () => ({
   type: BASKET_CLEAR
 });
 
-export const addBasketPayment = (count: number) => ({
-  type: BASKET_PAYMENT_ADD,
-  payload: count,
-});
-
-export const deleteBasketPayment = (id: number) => ({
-  type: BASKET_PAYMENT_DELETE,
+export const deleteItemBasketProduct = (id: string) => ({
+  type: BASKET_ITEM_DELETE,
   payload: id,
 });
 
-export const deleteBasketPaymentAll = () => ({
-  type: BASKET_PAYMENT_DELETE_ALL,
+export const changeBasketPayment = (count: number) => ({
+  type: BASKET_PAYMENT_CHANGE,
+  payload: count,
 });
 

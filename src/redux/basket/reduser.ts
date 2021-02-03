@@ -2,28 +2,28 @@ import {
   BASKET_ADD,
   BASKET_DELETE,
   BASKET_CLEAR,
-  BASKET_PAYMENT_ADD,
-  BASKET_PAYMENT_DELETE,
-  BASKET_PAYMENT_DELETE_ALL
+  BASKET_PAYMENT_CHANGE,
+  BASKET_ITEM_DELETE
 } from '../actions';
 
 import { initStateType, BasketActionsType } from './types'
 
-const ditailPayProcent = (objectArray: initStateType["basket"], pay: number[]) => { 
+const ditailPayProcent = (objectArray: initStateType["basket"], pay: number) => { 
   const sumBasket = Object.keys(objectArray).reduce( (sum: number, item: string) => (
     sum = sum + (objectArray[item].count * Number(objectArray[item].product.price?.count))
-  ), 0);
-  const sumPay = pay.reduce((sum, item) => ( sum = sum + item ), 0)
+  ), 0); 
   const oneProcentProduct = sumBasket / 100;
-  const onePayProduct = sumPay / 100;
+  const oneProcentPay = pay / 100;
   Object.keys(objectArray).forEach( (item: string) => {
-    objectArray[item].ditailPayProcent = ((objectArray[item].count * Number(objectArray[item].product.price?.count)) / oneProcentProduct) * onePayProduct;
+    const count = Math.round(((objectArray[item].count * Number(objectArray[item].product.price?.count)) / oneProcentProduct) * oneProcentPay);
+    objectArray[item].ditailPayProcent = Math.round( count / ((objectArray[item].count * Number(objectArray[item].product.price?.count)) / 100));
+    objectArray[item].ditailPayCount = count;
   })
 }
 
 const INIT_STATE: initStateType = {
   basket: {},
-  payments: [],
+  payments: 0,
 };
 
 const reducer = (state = INIT_STATE, action: BasketActionsType): initStateType => {
@@ -61,25 +61,22 @@ const reducer = (state = INIT_STATE, action: BasketActionsType): initStateType =
         return {
           ...state,
         };
+        
+      case BASKET_ITEM_DELETE:
+        delete(state.basket[action.payload])
+        return {
+          ...state,
+        };
     //----------------------------
 
     //Добавление оплаты к корзине
-      case BASKET_PAYMENT_ADD:
-        state.payments.push(action.payload);
-        ditailPayProcent(state.basket, state.payments)
+      case BASKET_PAYMENT_CHANGE:
+        state.payments = action.payload;
+        if(state.basket)
+          ditailPayProcent(state.basket, state.payments)
         return {
           ...state
-        }
-      case BASKET_PAYMENT_DELETE:
-        state.payments.splice(action.payload, 1); 
-        return {
-          ...state
-        }
-      case BASKET_PAYMENT_DELETE_ALL: 
-        state.payments = [];
-        return {
-          ...state
-        }
+        } 
     //----------------------------
     default:
       return state;
