@@ -67,7 +67,7 @@ export const setApplicationsDetail = (data: any) => ({
   const getApplicationsRequest = async (id: string) => {
     return axios
       .get('application/applications', {
-        params: { client_id: id },
+        params: { company_id: id },
       })
       .then((response) => response.data);
   };  

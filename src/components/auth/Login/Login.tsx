@@ -1,12 +1,12 @@
-import React, {FC} from 'react'
+import React, { FC } from "react";
 
-import LoginForm from './LoginForm';
-import { Button } from 'antd';
+import LoginForm from "./LoginForm";
+import { Button } from "antd";
 
-import loginPagesImg from '../../../images/login-pages.png'
-import logo from '../../../images/logo.svg'
+import loginPagesImg from "../../../images/login-pages.png";
+import logo from "../../../images/logo.svg";
 
-import './Login.scss'
+import "./Login.scss";
 
 const Login: FC = () => (
   <div className="login">
@@ -25,8 +25,12 @@ const Login: FC = () => (
             </div>
             <LoginForm />
             <div className="navigation-link">
-              <Button type="text" href="#">Создать акаунт</Button>
-              <Button type="text" href="#">Забыли пароль</Button>
+              <Button type="text" href="#">
+                Создать акаунт
+              </Button>
+              <Button type="text" href="#">
+                Забыли пароль
+              </Button>
             </div>
           </div>
           <div className="login-left-footer">© 2020 WebSystems</div>
@@ -36,7 +40,7 @@ const Login: FC = () => (
         <img src={loginPagesImg} alt="img" />
       </div>
     </div>
-  </div> 
-)
+  </div>
+);
 
 export default Login;

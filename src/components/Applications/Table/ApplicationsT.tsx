@@ -84,8 +84,8 @@ const ApplicationsVT: FC = () => {
   const { userData } = useSelector( (state: StateType) => state.user ); 
   const [selectedTr, setSelectedTr] = useState<null | number>(null);
   useEffect(() => {
-    userData?.data.id && dispatch(getApplications(userData?.data.id));
-  }, [dispatch, userData?.data.id]) 
+    userData?.data.id && dispatch(getApplications(userData?.data.companyId));
+  }, [dispatch, userData?.data.companyId]) 
 
   const { applications, loading, error } = useSelector( (state: StateType) => state.applications );
   

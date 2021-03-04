@@ -22,7 +22,7 @@ const Payments: FC = () => {
   const Footer = () => (
     <div className="payments-total">
       <span>Общая сумма оплаты:</span>
-      { payments?.reduce((a: number, {count}: {count: number}) => (a + count), 0) } ₽
+      { payments?.reduce((sum: number, {count}: {count: number}) => (sum + Number(count)), 0) } ₽
     </div>
   )
 
